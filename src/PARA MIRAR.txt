@@ -1,0 +1,3 @@
+https://michele.io/nodemon-babel-vscode/
+
+Para ver como hacer funcionar el watch + nodemon con VSCode
