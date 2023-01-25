@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "diagnosticLogging": true,
+    "configurations": [
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "start",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/nodemon/bin/nodemon.js",
+            "args": ["server/server.js"],
+            "restart": true,
+            "stopOnEntry": false,
+            "runtimeArgs": [
+              "--require",
+              "babel-register",
+              "-w",
+              "server"
+            ],
+            "sourceMaps": true
+        },
+    ]
+  }
