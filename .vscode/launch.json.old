@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "diagnosticLogging": true,
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "nodemon",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/nodemon/bin/nodemon.js",
+            "args": ["server/server.js"],
+            "restart": true,
+            "stopOnEntry": false,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "runtimeArgs": [
+              "--require",
+              "babel-register",
+              "--inspect",
+              "-w",
+              "server"
+            ],
+            "sourceMaps": true
+        }
+    ]
+  }
