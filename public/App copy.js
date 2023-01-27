@@ -87,9 +87,9 @@ var IssueTable = /*#__PURE__*/function (_React$Component3) {
           issue: issue
         });
       });
-      var tableStyle = this.props.tableStyle;
+      console.log(issuesRows);
       return /*#__PURE__*/React.createElement("table", {
-        style: tableStyle
+        style: this.props.tableStyle
       }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Status"), /*#__PURE__*/React.createElement("th", null, "Owner"), /*#__PURE__*/React.createElement("th", null, "Created Date"), /*#__PURE__*/React.createElement("th", null, "Due Date"), /*#__PURE__*/React.createElement("th", null, "Title"))), /*#__PURE__*/React.createElement("tbody", null, issuesRows));
     }
   }]);
@@ -134,4 +134,4 @@ var IssueList = /*#__PURE__*/function (_React$Component5) {
 }(React.Component); // Crear issue list
 var element = /*#__PURE__*/React.createElement(IssueList, null);
 ReactDOM.render(element, document.getElementById('contents'));
-//# sourceMappingURL=App.js.map
+//# sourceMappingURL=App copy.js.map

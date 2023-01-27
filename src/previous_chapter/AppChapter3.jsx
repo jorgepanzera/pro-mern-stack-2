@@ -48,10 +48,10 @@ class IssueFilter extends React.Component {
 
     // Iterar con map en el array de issues, key para unique id de cada fila
     const issuesRows = issues.map(issue => <IssueRow key={issue.id} issue={issue} />);
-    const tableStyle = this.props.tableStyle;
+    console.log(issuesRows);
 
   return (
-    <table style={tableStyle}>
+    <table style={this.props.tableStyle}>
       <thead>
         <tr>
           <th >ID</th>
