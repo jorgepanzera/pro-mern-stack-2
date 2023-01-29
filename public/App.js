@@ -14,7 +14,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 // Array de issues, simulando un fetch de una API o db
-var issues = [{
+var initialIssues = [{
   id: 1,
   status: 'New',
   owner: 'Ravan',
@@ -74,14 +74,19 @@ var IssueTable = /*#__PURE__*/function (_React$Component3) {
   _inherits(IssueTable, _React$Component3);
   var _super3 = _createSuper(IssueTable);
   function IssueTable() {
+    var _this;
     _classCallCheck(this, IssueTable);
-    return _super3.apply(this, arguments);
+    _this = _super3.call(this);
+    _this.state = {
+      issues: initialIssues
+    };
+    return _this;
   }
   _createClass(IssueTable, [{
     key: "render",
     value: function render() {
-      // Iterar con map en el array de issues, key para unique id de cada fila
-      var issuesRows = issues.map(function (issue) {
+      // Iterar con map en el array de issues del state, key para unique id de cada fila
+      var issuesRows = this.state.issues.map(function (issue) {
         return /*#__PURE__*/React.createElement(IssueRow, {
           key: issue.id,
           issue: issue
