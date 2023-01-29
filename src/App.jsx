@@ -1,5 +1,5 @@
 // Array de issues, simulando un fetch de una API o db
-const issues = [
+const initialIssues = [
   {
     id: 1, status: 'New', owner: 'Ravan', effort: 5,
     created: new Date('2018-08-15'), due: undefined,
@@ -17,6 +17,7 @@ const issues = [
   }
 ];
 
+
 class IssueFilter extends React.Component {
   render() {
     return (
@@ -26,9 +27,15 @@ class IssueFilter extends React.Component {
  }
 
  class IssueRow extends React.Component {
+  constructor() {
+    super();
+    this.state = { state : issue.state, color:}
+  }
+
   render() {
 
     const issue = this.props.issue;
+
 
     return (
       <tr>
@@ -44,10 +51,15 @@ class IssueFilter extends React.Component {
  }
 
  class IssueTable extends React.Component {
+  constructor() {
+    super();
+    this.state = {issues: initialIssues};
+  }
+
   render() {
 
-    // Iterar con map en el array de issues, key para unique id de cada fila
-    const issuesRows = issues.map(issue => <IssueRow key={issue.id} issue={issue} />);
+    // Iterar con map en el array de issues del state, key para unique id de cada fila
+    const issuesRows = this.state.issues.map(issue => <IssueRow key={issue.id} issue={issue} />);
     const tableStyle = this.props.tableStyle;
 
   return (
