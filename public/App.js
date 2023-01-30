@@ -39,6 +39,16 @@ var initialIssues = [{
   due: new Date('2023-10-30'),
   title: 'Read all book in English'
 }];
+var sampleIssue = {
+  status: 'New',
+  owner: 'Pieta',
+  title: 'Add new issue using timer'
+};
+var otherIssue = {
+  status: 'New',
+  owner: 'Pepe',
+  title: 'Add new issue using timer 2'
+};
 var IssueFilter = /*#__PURE__*/function (_React$Component) {
   _inherits(IssueFilter, _React$Component);
   var _super = _createSuper(IssueFilter);
@@ -65,6 +75,7 @@ var IssueRow = /*#__PURE__*/function (_React$Component2) {
     key: "render",
     value: function render() {
       var issue = this.props.issue;
+      console.log("Rendering issue ".concat(issue.id));
       return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, " ", issue.id, " "), /*#__PURE__*/React.createElement("td", null, " ", issue.status, " "), /*#__PURE__*/React.createElement("td", null, " ", issue.owner, " "), /*#__PURE__*/React.createElement("td", null, " ", issue.created.toDateString(), " "), /*#__PURE__*/React.createElement("td", null, " ", issue.due ? issue.due.toDateString() : '', " "), /*#__PURE__*/React.createElement("td", null, " ", issue.title, " "));
     }
   }]);
@@ -82,28 +93,40 @@ var IssueTable = /*#__PURE__*/function (_React$Component3) {
     };
     return _this;
   }
+
+  // cuando el componente esta pronto para render, le asigno el state inicial
   _createClass(IssueTable, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
       this.loadData();
+      setTimeout(function () {
+        _this2.createIssue(sampleIssue);
+      }, 2000);
+      setTimeout(function () {
+        _this2.createIssue(otherIssue);
+      }, 4000);
     }
-
-    /*
-    loadData() {
-      setTimeout(() => {
-        this.setState({ issues: initialIssues });
-      }, 500);
-    }
-    */
   }, {
     key: "loadData",
     value: function loadData() {
-      var _this2 = this;
+      var _this3 = this;
       setTimeout(function () {
-        _this2.setState({
+        _this3.setState({
           issues: initialIssues
         });
       }, 1000);
+    }
+  }, {
+    key: "createIssue",
+    value: function createIssue(issue) {
+      issue.id = this.state.issues.length + 1;
+      issue.created = new Date();
+      var newIssueList = this.state.issues.slice();
+      newIssueList.push(issue);
+      this.setState({
+        issues: newIssueList
+      });
     }
   }, {
     key: "render",

@@ -17,6 +17,15 @@ const initialIssues = [
   }
 ];
 
+const sampleIssue = {
+  status: 'New', owner: 'Pieta',
+  title: 'Add new issue using timer',
+ };
+
+ const otherIssue = {
+  status: 'New', owner: 'Pepe',
+  title: 'Add new issue using timer 2',
+ };
 
 class IssueFilter extends React.Component {
   render() {
@@ -35,7 +44,7 @@ class IssueFilter extends React.Component {
 
     const issue = this.props.issue;
 
-
+    console.log(`Rendering issue ${issue.id}`);
     return (
       <tr>
         <td> {issue.id} </td>
@@ -48,25 +57,26 @@ class IssueFilter extends React.Component {
     );
   }
  }
+ 
 
  class IssueTable extends React.Component {
   constructor() {
     super();
     this.state = { issues: [] };
+
   }
 
-
+  // cuando el componente esta pronto para render, le asigno el state inicial
   componentDidMount() {
     this.loadData();
+    setTimeout(() => {
+      this.createIssue(sampleIssue);
+      }, 2000);
+      setTimeout(() => {
+        this.createIssue(otherIssue);
+        }, 4000);
   }
 
-  /*
-  loadData() {
-    setTimeout(() => {
-      this.setState({ issues: initialIssues });
-    }, 500);
-  }
-  */
 
   loadData() {
     setTimeout(() => {
@@ -74,6 +84,13 @@ class IssueFilter extends React.Component {
     }, 1000);
   }
 
+  createIssue(issue) {
+    issue.id = this.state.issues.length + 1;
+    issue.created = new Date();
+    const newIssueList = this.state.issues.slice();
+    newIssueList.push(issue);
+    this.setState({ issues: newIssueList });
+  }
 
   render() {
 
