@@ -57,45 +57,18 @@ class IssueFilter extends React.Component {
     );
   }
  }
- 
+
 
  class IssueTable extends React.Component {
   constructor() {
     super();
-    this.state = { issues: [] };
-
   }
 
-  // cuando el componente esta pronto para render, le asigno el state inicial
-  componentDidMount() {
-    this.loadData();
-    setTimeout(() => {
-      this.createIssue(sampleIssue);
-      }, 2000);
-      setTimeout(() => {
-        this.createIssue(otherIssue);
-        }, 4000);
-  }
-
-
-  loadData() {
-    setTimeout(() => {
-      this.setState({issues : initialIssues});
-    }, 1000);
-  }
-
-  createIssue(issue) {
-    issue.id = this.state.issues.length + 1;
-    issue.created = new Date();
-    const newIssueList = this.state.issues.slice();
-    newIssueList.push(issue);
-    this.setState({ issues: newIssueList });
-  }
 
   render() {
 
     // Iterar con map en el array de issues del state, key para unique id de cada fila
-    const issuesRows = this.state.issues.map(issue => <IssueRow key={issue.id} issue={issue} />);
+    const issuesRows = this.props.issues.map(issue => <IssueRow key={issue.id} issue={issue} />);
     const tableStyle = this.props.tableStyle;
 
   return (
@@ -119,15 +92,53 @@ class IssueFilter extends React.Component {
  }
  
  class IssueAdd extends React.Component {
+  constructor() {
+    super();
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.createIssue(sampleIssue);
+      }, 2000);
+      setTimeout(() => {
+        this.props.createIssue(otherIssue);
+        }, 4000);
+  }
+  
   render() {
-  return (
-  <div>This is a placeholder for a form to add an issue.</div>
-  );
+    return (
+    <div>This is a placeholder for a form to add an issue.</div>
+    );
   }
  }
 
  // clase que usa las otras 3 en un Fragment
  class IssueList extends React.Component { 
+  constructor() {
+    super();
+    this.state = { issues: [] };
+    this.createIssue = this.createIssue.bind(this); // para poder usarlo en child elements, y que this siga apuntando a IssueList
+  }
+
+  loadData() {
+    setTimeout(() => {
+      this.setState({issues : initialIssues});
+    }, 1000);
+  }
+
+  createIssue(issue) {
+    issue.id = this.state.issues.length + 1;
+    issue.created = new Date();
+    const newIssueList = this.state.issues.slice();
+    newIssueList.push(issue);
+    this.setState({ issues: newIssueList });
+  }
+
+  // cuando el componente esta pronto para render, le asigno el state inicial
+  componentDidMount() {
+    this.loadData();
+  }
+
   render() {
 
     const tableStyle = {marginLeft: "auto",  marginRight: "auto", borderCollapse: "collapse"};
@@ -137,9 +148,9 @@ class IssueFilter extends React.Component {
     <h1>Issue Tracker</h1>
     <IssueFilter />
     <hr />
-    <IssueTable tableStyle={tableStyle} />
+    <IssueTable issues={this.state.issues} tableStyle={tableStyle} />
       <hr />
-    <IssueAdd />
+    <IssueAdd createIssue={this.createIssue} />
   </React.Fragment>
   );
   }

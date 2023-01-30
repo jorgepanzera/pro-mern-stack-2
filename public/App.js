@@ -85,29 +85,67 @@ var IssueTable = /*#__PURE__*/function (_React$Component3) {
   _inherits(IssueTable, _React$Component3);
   var _super3 = _createSuper(IssueTable);
   function IssueTable() {
-    var _this;
     _classCallCheck(this, IssueTable);
-    _this = _super3.call(this);
-    _this.state = {
-      issues: []
-    };
-    return _this;
+    return _super3.call(this);
   }
-
-  // cuando el componente esta pronto para render, le asigno el state inicial
   _createClass(IssueTable, [{
+    key: "render",
+    value: function render() {
+      // Iterar con map en el array de issues del state, key para unique id de cada fila
+      var issuesRows = this.props.issues.map(function (issue) {
+        return /*#__PURE__*/React.createElement(IssueRow, {
+          key: issue.id,
+          issue: issue
+        });
+      });
+      var tableStyle = this.props.tableStyle;
+      return /*#__PURE__*/React.createElement("table", {
+        style: tableStyle
+      }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Status"), /*#__PURE__*/React.createElement("th", null, "Owner"), /*#__PURE__*/React.createElement("th", null, "Created Date"), /*#__PURE__*/React.createElement("th", null, "Due Date"), /*#__PURE__*/React.createElement("th", null, "Title"))), /*#__PURE__*/React.createElement("tbody", null, issuesRows));
+    }
+  }]);
+  return IssueTable;
+}(React.Component);
+var IssueAdd = /*#__PURE__*/function (_React$Component4) {
+  _inherits(IssueAdd, _React$Component4);
+  var _super4 = _createSuper(IssueAdd);
+  function IssueAdd() {
+    _classCallCheck(this, IssueAdd);
+    return _super4.call(this);
+  }
+  _createClass(IssueAdd, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this2 = this;
-      this.loadData();
+      var _this = this;
       setTimeout(function () {
-        _this2.createIssue(sampleIssue);
+        _this.props.createIssue(sampleIssue);
       }, 2000);
       setTimeout(function () {
-        _this2.createIssue(otherIssue);
+        _this.props.createIssue(otherIssue);
       }, 4000);
     }
   }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", null, "This is a placeholder for a form to add an issue.");
+    }
+  }]);
+  return IssueAdd;
+}(React.Component); // clase que usa las otras 3 en un Fragment
+var IssueList = /*#__PURE__*/function (_React$Component5) {
+  _inherits(IssueList, _React$Component5);
+  var _super5 = _createSuper(IssueList);
+  function IssueList() {
+    var _this2;
+    _classCallCheck(this, IssueList);
+    _this2 = _super5.call(this);
+    _this2.state = {
+      issues: []
+    };
+    _this2.createIssue = _this2.createIssue.bind(_assertThisInitialized(_this2)); // para poder usarlo en child elements, y que this siga apuntando a IssueList
+    return _this2;
+  }
+  _createClass(IssueList, [{
     key: "loadData",
     value: function loadData() {
       var _this3 = this;
@@ -128,47 +166,14 @@ var IssueTable = /*#__PURE__*/function (_React$Component3) {
         issues: newIssueList
       });
     }
+
+    // cuando el componente esta pronto para render, le asigno el state inicial
   }, {
-    key: "render",
-    value: function render() {
-      // Iterar con map en el array de issues del state, key para unique id de cada fila
-      var issuesRows = this.state.issues.map(function (issue) {
-        return /*#__PURE__*/React.createElement(IssueRow, {
-          key: issue.id,
-          issue: issue
-        });
-      });
-      var tableStyle = this.props.tableStyle;
-      return /*#__PURE__*/React.createElement("table", {
-        style: tableStyle
-      }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Status"), /*#__PURE__*/React.createElement("th", null, "Owner"), /*#__PURE__*/React.createElement("th", null, "Created Date"), /*#__PURE__*/React.createElement("th", null, "Due Date"), /*#__PURE__*/React.createElement("th", null, "Title"))), /*#__PURE__*/React.createElement("tbody", null, issuesRows));
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.loadData();
     }
-  }]);
-  return IssueTable;
-}(React.Component);
-var IssueAdd = /*#__PURE__*/function (_React$Component4) {
-  _inherits(IssueAdd, _React$Component4);
-  var _super4 = _createSuper(IssueAdd);
-  function IssueAdd() {
-    _classCallCheck(this, IssueAdd);
-    return _super4.apply(this, arguments);
-  }
-  _createClass(IssueAdd, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, "This is a placeholder for a form to add an issue.");
-    }
-  }]);
-  return IssueAdd;
-}(React.Component); // clase que usa las otras 3 en un Fragment
-var IssueList = /*#__PURE__*/function (_React$Component5) {
-  _inherits(IssueList, _React$Component5);
-  var _super5 = _createSuper(IssueList);
-  function IssueList() {
-    _classCallCheck(this, IssueList);
-    return _super5.apply(this, arguments);
-  }
-  _createClass(IssueList, [{
+  }, {
     key: "render",
     value: function render() {
       var tableStyle = {
@@ -177,8 +182,11 @@ var IssueList = /*#__PURE__*/function (_React$Component5) {
         borderCollapse: "collapse"
       };
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Issue Tracker"), /*#__PURE__*/React.createElement(IssueFilter, null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(IssueTable, {
+        issues: this.state.issues,
         tableStyle: tableStyle
-      }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(IssueAdd, null));
+      }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(IssueAdd, {
+        createIssue: this.createIssue
+      }));
     }
   }]);
   return IssueList;
