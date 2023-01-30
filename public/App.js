@@ -59,7 +59,7 @@ var IssueRow = /*#__PURE__*/function (_React$Component2) {
   var _super2 = _createSuper(IssueRow);
   function IssueRow() {
     _classCallCheck(this, IssueRow);
-    return _super2.apply(this, arguments);
+    return _super2.call(this);
   }
   _createClass(IssueRow, [{
     key: "render",
@@ -78,11 +78,34 @@ var IssueTable = /*#__PURE__*/function (_React$Component3) {
     _classCallCheck(this, IssueTable);
     _this = _super3.call(this);
     _this.state = {
-      issues: initialIssues
+      issues: []
     };
     return _this;
   }
   _createClass(IssueTable, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.loadData();
+    }
+
+    /*
+    loadData() {
+      setTimeout(() => {
+        this.setState({ issues: initialIssues });
+      }, 500);
+    }
+    */
+  }, {
+    key: "loadData",
+    value: function loadData() {
+      var _this2 = this;
+      setTimeout(function () {
+        _this2.setState({
+          issues: initialIssues
+        });
+      }, 1000);
+    }
+  }, {
     key: "render",
     value: function render() {
       // Iterar con map en el array de issues del state, key para unique id de cada fila

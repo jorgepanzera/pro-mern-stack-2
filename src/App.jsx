@@ -29,7 +29,6 @@ class IssueFilter extends React.Component {
  class IssueRow extends React.Component {
   constructor() {
     super();
-    this.state = { state : issue.state, color:}
   }
 
   render() {
@@ -53,8 +52,28 @@ class IssueFilter extends React.Component {
  class IssueTable extends React.Component {
   constructor() {
     super();
-    this.state = {issues: initialIssues};
+    this.state = { issues: [] };
   }
+
+
+  componentDidMount() {
+    this.loadData();
+  }
+
+  /*
+  loadData() {
+    setTimeout(() => {
+      this.setState({ issues: initialIssues });
+    }, 500);
+  }
+  */
+
+  loadData() {
+    setTimeout(() => {
+      this.setState({issues : initialIssues});
+    }, 1000);
+  }
+
 
   render() {
 
