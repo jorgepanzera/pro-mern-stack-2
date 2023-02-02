@@ -97,17 +97,24 @@ class IssueFilter extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.props.createIssue(sampleIssue);
-      }, 2000);
-      setTimeout(() => {
-        this.props.createIssue(otherIssue);
-        }, 4000);
+
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const form = document.forms.IssueAdd;
+    
+
   }
   
   render() {
     return (
-    <div>This is a placeholder for a form to add an issue.</div>
+    <form name="IssueSubmit" onSubmit={this.handleSubmit}>
+      <input type = "text" name="owner" placeholder="Owner" / >
+      <input type = "text" name="title" placeholder="Title" / >
+      <button>Add</button>
+    </form>
     );
   }
  }

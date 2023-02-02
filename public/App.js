@@ -115,19 +115,28 @@ var IssueAdd = /*#__PURE__*/function (_React$Component4) {
   }
   _createClass(IssueAdd, [{
     key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this = this;
-      setTimeout(function () {
-        _this.props.createIssue(sampleIssue);
-      }, 2000);
-      setTimeout(function () {
-        _this.props.createIssue(otherIssue);
-      }, 4000);
+    value: function componentDidMount() {}
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      event.preventDefault();
+      var form = document.forms.IssueAdd;
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, "This is a placeholder for a form to add an issue.");
+      return /*#__PURE__*/React.createElement("form", {
+        name: "IssueSubmit",
+        onSubmit: this.handleSubmit
+      }, /*#__PURE__*/React.createElement("input", {
+        type: "text",
+        name: "owner",
+        placeholder: "Owner"
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "text",
+        name: "title",
+        placeholder: "Title"
+      }), /*#__PURE__*/React.createElement("button", null, "Add"));
     }
   }]);
   return IssueAdd;
@@ -136,21 +145,21 @@ var IssueList = /*#__PURE__*/function (_React$Component5) {
   _inherits(IssueList, _React$Component5);
   var _super5 = _createSuper(IssueList);
   function IssueList() {
-    var _this2;
+    var _this;
     _classCallCheck(this, IssueList);
-    _this2 = _super5.call(this);
-    _this2.state = {
+    _this = _super5.call(this);
+    _this.state = {
       issues: []
     };
-    _this2.createIssue = _this2.createIssue.bind(_assertThisInitialized(_this2)); // para poder usarlo en child elements, y que this siga apuntando a IssueList
-    return _this2;
+    _this.createIssue = _this.createIssue.bind(_assertThisInitialized(_this)); // para poder usarlo en child elements, y que this siga apuntando a IssueList
+    return _this;
   }
   _createClass(IssueList, [{
     key: "loadData",
     value: function loadData() {
-      var _this3 = this;
+      var _this2 = this;
       setTimeout(function () {
-        _this3.setState({
+        _this2.setState({
           issues: initialIssues
         });
       }, 1000);
