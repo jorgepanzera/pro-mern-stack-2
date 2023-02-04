@@ -35,17 +35,12 @@ class IssueFilter extends React.Component {
   }
  }
 
- class IssueRow extends React.Component {
-  constructor() {
-    super();
-  }
+ function IssueRow(props) {
 
-  render() {
+  const issue = props.issue;
 
-    const issue = this.props.issue;
-
-    console.log(`Rendering issue ${issue.id}`);
-    return (
+  console.log(`Rendering issue ${issue.id}`);
+  return (
       <tr>
         <td> {issue.id} </td>
         <td> {issue.status} </td>
@@ -54,22 +49,15 @@ class IssueFilter extends React.Component {
         <td> {issue.due ? issue.due.toDateString() : ''} </td>
         <td> {issue.title} </td>
       </tr>
-    );
-  }
+  );
  }
 
 
- class IssueTable extends React.Component {
-  constructor() {
-    super();
-  }
+ function IssueTable (props) {
 
-
-  render() {
-
-    // Iterar con map en el array de issues del state, key para unique id de cada fila
-    const issuesRows = this.props.issues.map(issue => <IssueRow key={issue.id} issue={issue} />);
-    const tableStyle = this.props.tableStyle;
+  // Iterar con map en el array de issues del state, key para unique id de cada fila
+  const issuesRows = props.issues.map(issue => <IssueRow key={issue.id} issue={issue} />);
+  const tableStyle = props.tableStyle;
 
   return (
     <table style={tableStyle}>
@@ -88,12 +76,12 @@ class IssueFilter extends React.Component {
       </tbody>
     </table>
   );
-  }
  }
  
  class IssueAdd extends React.Component {
   constructor() {
     super();
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -103,8 +91,11 @@ class IssueFilter extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const form = document.forms.IssueAdd;
-    
+    const form = document.forms.IssueSubmit;
+    const issue = { owner:form.owner.value, title:form.title.value, status:"New"};
+    this.props.createIssue(issue);
+    form.owner.value = "";
+    form.title.value= "";
 
   }
   
