@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --require babel-register -w server server/server.js",
-    "compile": "babel src --out-dir public",
-    "watch": "babel src --out-dir public --watch --verbose",
+    "compile": "babel src --out-dir public --extensions '.js,.ts,.tsx,.jsx'",
+    "watch": "babel src --out-dir public --watch --verbose --extensions '.js,.ts,.tsx,.jsx'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jorge Panzera",
@@ -20,6 +20,8 @@
   "devDependencies": {
     "@babel/cli": "^7.20.7",
     "@babel/core": "^7.20.12",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",

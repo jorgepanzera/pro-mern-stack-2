@@ -9,8 +9,22 @@
         "chrome": "49"
     }
     }],
-    "babel/preset-typescript",
-    "@babel/preset-react"
+    [ "@babel/preset-typescript",
+        {
+          "isTSX": true,
+          "allExtensions": true
+        }
+    ],
+    ["@babel/preset-react",
+        {
+        "flow": false,
+        "typescript": true
+        } 
+    ]
+    ],
+    "plugins": [
+        "@babel/proposal-class-properties",
+        "@babel/proposal-object-rest-spread"
     ],
     "sourceMaps" :true
 }
