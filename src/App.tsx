@@ -56,7 +56,7 @@ class IssueFilter extends React.Component<{}, {}> {
         <td> {issue.id} </td>
         <td> {issue.status} </td>
         <td> {issue.owner} </td>
-        <td> {issue.created.toDateString()} </td>
+        <td> { issue.created?.toDateString()} </td>
         <td> {issue.due ? issue.due.toDateString() : ''} </td>
         <td> {issue.title} </td>
       </tr>
@@ -112,8 +112,14 @@ class IssueAdd extends React.Component<IssueAddProps, IssueAddState> {
   handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const form : HTMLFormElement = document.forms.namedItem("IssueSubmit");
-    const issue : Issue= { owner : form.owner , title : form.title, status:"New"};
+    console.log(event.currentTarget);
+
+    const form  = document.forms.namedItem("IssueSubmit") as HTMLFormElement;
+    //const form = event.currentTarget;
+
+    let ie : HTMLInputElement;
+
+    const issue : Issue = { owner : form.owner , title : form.title, status:"New"};
     this.props.createIssue(issue);
     form.owner = "";
     form.title = "";
@@ -181,6 +187,13 @@ type IssueListState = {
   );
   }
  }
+
+ function IsFormFieldElement(element: Element): asserts element is HTMLInputElement | HTMLSelectElement | HTMLButtonElement {
+// Customize this list as necessary −−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    if (!("value" in element)) {
+        throw new Error(`Element is not a form field element`);
+    }
+}
 
  // Crear issue list
 ReactDOM.render(React.createElement(IssueList), document.getElementById('contents'));
