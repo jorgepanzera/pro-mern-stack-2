@@ -1,3 +1,14 @@
+interface Issue {
+  id?: number,
+  status : string,
+  owner : string,
+  effort? : number,
+  created? : Date,
+  due? : Date,
+  title : string
+}
+
+
 // Array de issues, simulando un fetch de una API o db
 const initialIssues = [
   {
@@ -17,17 +28,13 @@ const initialIssues = [
   }
 ];
 
-const sampleIssue = {
-  status: 'New', owner: 'Pieta',
-  title: 'Add new issue using timer',
- };
 
- const otherIssue = {
-  status: 'New', owner: 'Pepe',
-  title: 'Add new issue using timer 2',
- };
+ // Definir props y state para cada componente
+ type IssueFilterProps = {};
 
-class IssueFilter extends React.Component {
+ type IssueFilterState = {};
+
+class IssueFilter extends React.Component<{}, {}> {
   render() {
     return (
     <div>This is a placeholder for the issue filter.</div>
@@ -35,7 +42,11 @@ class IssueFilter extends React.Component {
   }
  }
 
- function IssueRow(props) {
+ type IssueRowProps = {issue : Issue};
+
+ type IssueRowState = {};
+
+ function IssueRow(props: IssueRowProps, state : IssueRowState) {
 
   const issue = props.issue;
 
@@ -52,8 +63,14 @@ class IssueFilter extends React.Component {
   );
  }
 
+ type IssueTableProps = {
+    issues : Issue[], 
+    tableStyle : React.CSSProperties
+  };
 
- function IssueTable (props) {
+ type IssueTableState = {};
+
+ function IssueTable (props : IssueTableProps, state : IssueTableState) {
 
   // Iterar con map en el array de issues del state, key para unique id de cada fila
   const issuesRows = props.issues.map(issue => <IssueRow key={issue.id} issue={issue} />);
@@ -78,9 +95,13 @@ class IssueFilter extends React.Component {
   );
  }
  
- class IssueAdd extends React.Component {
-  constructor() {
-    super();
+type IssueAddProps = { createIssue(issue : Issue) : void };
+
+type IssueAddState = {};
+
+class IssueAdd extends React.Component<IssueAddProps, IssueAddState> {
+  constructor(props: any) {
+    super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -88,14 +109,14 @@ class IssueFilter extends React.Component {
 
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const form = document.forms.IssueSubmit;
-    const issue = { owner:form.owner.value, title:form.title.value, status:"New"};
+    const form : HTMLFormElement = document.forms.namedItem("IssueSubmit");
+    const issue : Issue= { owner : form.owner , title : form.title, status:"New"};
     this.props.createIssue(issue);
-    form.owner.value = "";
-    form.title.value= "";
+    form.owner = "";
+    form.title = "";
 
   }
   
@@ -111,9 +132,16 @@ class IssueFilter extends React.Component {
  }
 
  // clase que usa las otras 3 en un Fragment
- class IssueList extends React.Component { 
-  constructor() {
-    super();
+
+type IssueListProps = {};
+
+type IssueListState = {
+  issues : Issue[]
+};
+
+ class IssueList extends React.Component<IssueListProps, IssueListState> { 
+  constructor(props: any) {
+    super(props);
     this.state = { issues: [] };
     this.createIssue = this.createIssue.bind(this); // para poder usarlo en child elements, y que this siga apuntando a IssueList
   }
@@ -124,7 +152,7 @@ class IssueFilter extends React.Component {
     }, 1000);
   }
 
-  createIssue(issue) {
+  createIssue(issue: Issue) {
     issue.id = this.state.issues.length + 1;
     issue.created = new Date();
     const newIssueList = this.state.issues.slice();
@@ -139,7 +167,7 @@ class IssueFilter extends React.Component {
 
   render() {
 
-    const tableStyle = {marginLeft: "auto",  marginRight: "auto", borderCollapse: "collapse"};
+    const tableStyle : React.CSSProperties = {marginLeft: "auto",  marginRight: "auto", borderCollapse: "collapse"};
 
   return (
   <React.Fragment>
@@ -155,6 +183,4 @@ class IssueFilter extends React.Component {
  }
 
  // Crear issue list
-const element = <IssueList  / >;
-
-ReactDOM.render(element, document.getElementById('contents'));
+ReactDOM.render(React.createElement(IssueList), document.getElementById('contents'));

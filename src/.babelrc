@@ -9,6 +9,7 @@
         "chrome": "49"
     }
     }],
+    "babel/preset-typescript",
     "@babel/preset-react"
     ],
     "sourceMaps" :true
