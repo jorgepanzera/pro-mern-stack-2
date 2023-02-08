@@ -5,7 +5,7 @@ interface Issue {
   effort? : number,
   created? : Date,
   due? : Date,
-  title : string
+  issue_title : string
 }
 
 
@@ -14,17 +14,17 @@ const initialIssues = [
   {
     id: 1, status: 'New', owner: 'Ravan', effort: 5,
     created: new Date('2018-08-15'), due: undefined,
-    title: 'Error in console when clicking Add',
+    issue_title: 'Error in console when clicking Add',
   },
   {
     id: 2, status: 'Assigned', owner: 'Eddie', effort: 14,
     created: new Date('2018-08-16'), due: new Date('2018-08-30'),
-    title: 'Missing bottom border on panel',
+    issue_title: 'Missing bottom border on panel',
   },
   {
     id: 3, status: 'Ready', owner: 'Sofi', effort: 33,
     created: new Date('2023-09-27'), due: new Date('2023-10-30'),
-    title: 'Read all book in English',
+    issue_title: 'Read all book in English',
   }
 ];
 
@@ -58,7 +58,7 @@ class IssueFilter extends React.Component<{}, {}> {
         <td> {issue.owner} </td>
         <td> { issue.created?.toDateString()} </td>
         <td> {issue.due ? issue.due.toDateString() : ''} </td>
-        <td> {issue.title} </td>
+        <td> {issue.issue_title} </td>
       </tr>
   );
  }
@@ -117,12 +117,13 @@ class IssueAdd extends React.Component<IssueAddProps, IssueAddState> {
     const form  = document.forms.namedItem("IssueSubmit") as HTMLFormElement;
     //const form = event.currentTarget;
 
-    let ie : HTMLInputElement;
+    let owner : string = form.owner?.value
+    let title : string = form.issue_title?.value
 
-    const issue : Issue = { owner : form.owner , title : form.title, status:"New"};
+    const issue : Issue = { owner : form.owner?.value , issue_title : form.issue_title?.value, status:"New"};
     this.props.createIssue(issue);
-    form.owner = "";
-    form.title = "";
+    form.owner.value = "";
+    form.issue_title.value = "";
 
   }
   
@@ -130,7 +131,7 @@ class IssueAdd extends React.Component<IssueAddProps, IssueAddState> {
     return (
     <form name="IssueSubmit" onSubmit={this.handleSubmit}>
       <input type = "text" name="owner" placeholder="Owner" / >
-      <input type = "text" name="title" placeholder="Title" / >
+      <input type = "text" name="issue_title" placeholder="Title" / >
       <button>Add</button>
     </form>
     );

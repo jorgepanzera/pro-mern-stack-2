@@ -22,7 +22,7 @@ var initialIssues = [{
   effort: 5,
   created: new Date('2018-08-15'),
   due: undefined,
-  title: 'Error in console when clicking Add'
+  issue_title: 'Error in console when clicking Add'
 }, {
   id: 2,
   status: 'Assigned',
@@ -30,7 +30,7 @@ var initialIssues = [{
   effort: 14,
   created: new Date('2018-08-16'),
   due: new Date('2018-08-30'),
-  title: 'Missing bottom border on panel'
+  issue_title: 'Missing bottom border on panel'
 }, {
   id: 3,
   status: 'Ready',
@@ -38,7 +38,7 @@ var initialIssues = [{
   effort: 33,
   created: new Date('2023-09-27'),
   due: new Date('2023-10-30'),
-  title: 'Read all book in English'
+  issue_title: 'Read all book in English'
 }];
 
 // Definir props y state para cada componente
@@ -61,7 +61,7 @@ function IssueRow(props, state) {
   var _issue$created;
   var issue = props.issue;
   console.log("Rendering issue ".concat(issue.id));
-  return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, " ", issue.id, " "), /*#__PURE__*/React.createElement("td", null, " ", issue.status, " "), /*#__PURE__*/React.createElement("td", null, " ", issue.owner, " "), /*#__PURE__*/React.createElement("td", null, " ", (_issue$created = issue.created) === null || _issue$created === void 0 ? void 0 : _issue$created.toDateString(), " "), /*#__PURE__*/React.createElement("td", null, " ", issue.due ? issue.due.toDateString() : '', " "), /*#__PURE__*/React.createElement("td", null, " ", issue.title, " "));
+  return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, " ", issue.id, " "), /*#__PURE__*/React.createElement("td", null, " ", issue.status, " "), /*#__PURE__*/React.createElement("td", null, " ", issue.owner, " "), /*#__PURE__*/React.createElement("td", null, " ", (_issue$created = issue.created) === null || _issue$created === void 0 ? void 0 : _issue$created.toDateString(), " "), /*#__PURE__*/React.createElement("td", null, " ", issue.due ? issue.due.toDateString() : '', " "), /*#__PURE__*/React.createElement("td", null, " ", issue.issue_title, " "));
 }
 function IssueTable(props, state) {
   // Iterar con map en el array de issues del state, key para unique id de cada fila
@@ -84,20 +84,22 @@ var IssueAdd = /*#__PURE__*/function (_React$Component2) {
     _classCallCheck(this, IssueAdd);
     _this = _super2.call(this, props);
     _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (event) {
+      var _form$owner, _form$issue_title, _form$owner2, _form$issue_title2;
       event.preventDefault();
       console.log(event.currentTarget);
       var form = document.forms.namedItem("IssueSubmit");
       //const form = event.currentTarget;
 
-      var ie;
+      var owner = (_form$owner = form.owner) === null || _form$owner === void 0 ? void 0 : _form$owner.value;
+      var title = (_form$issue_title = form.issue_title) === null || _form$issue_title === void 0 ? void 0 : _form$issue_title.value;
       var issue = {
-        owner: form.owner,
-        title: form.title,
+        owner: (_form$owner2 = form.owner) === null || _form$owner2 === void 0 ? void 0 : _form$owner2.value,
+        issue_title: (_form$issue_title2 = form.issue_title) === null || _form$issue_title2 === void 0 ? void 0 : _form$issue_title2.value,
         status: "New"
       };
       _this.props.createIssue(issue);
-      form.owner = "";
-      form.title = "";
+      form.owner.value = "";
+      form.issue_title.value = "";
     });
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
@@ -117,7 +119,7 @@ var IssueAdd = /*#__PURE__*/function (_React$Component2) {
         placeholder: "Owner"
       }), /*#__PURE__*/React.createElement("input", {
         type: "text",
-        name: "title",
+        name: "issue_title",
         placeholder: "Title"
       }), /*#__PURE__*/React.createElement("button", null, "Add"));
     }
