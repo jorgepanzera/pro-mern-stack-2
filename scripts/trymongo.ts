@@ -8,6 +8,7 @@
 const url = `mongodb+srv://admin:Ji9vfIASQ7NnFwN8@cluster0.30imzhm.mongodb.net`;
 
 const MongoClient = require("mongodb").MongoClient;
+const client = new MongoClient(url, { useNewUrlParser: true });
 
 let db: any;
 
@@ -19,7 +20,6 @@ async function listCollection(database_name: string, collection_name: string) : 
 }
 
 async function connectToDb(database_name:string) {
-  const client = new MongoClient(url, { useNewUrlParser: true });
   await client.connect();
   console.log("Connected to MongoDB at", url);
   db = client.db(database_name);
@@ -30,53 +30,54 @@ async function show(database_name: string, collection_name:string) {
   console.log(result);
 }
 
-show("sample_restaurants","restaurants");
 
+async function initialiceSchema() {
 
-/*
-function testWithCallbacks(callback: any): void {
-  console.log("\n--- testWithCallbacks ---");
+  const issuesDB = [
+    {
+      id: 1,
+      status: "New",
+      owner: "Ravan",
+      effort: 5,
+      created: new Date("2018-08-15"),
+      due: undefined,
+      issue_title: "Error in console when clicking Add",
+    },
+    {
+      id: 2,
+      status: "Assigned",
+      owner: "Eddie",
+      effort: 14,
+      created: new Date("2018-08-16"),
+      due: new Date("2018-08-30"),
+      issue_title: "Missing bottom border on panel",
+    },
+    {
+      id: 3,
+      status: "Ready",
+      owner: "Sofi",
+      effort: 33,
+      created: new Date("2023-09-27"),
+      due: new Date("2023-10-30"),
+      issue_title: "Read all book in English",
+    },
+  ];
+  
+  await connectToDb("issuetracker");
 
-  MongoClient.connect(url, function (err: any, db: any) {
-    if (err) throw err;
-    var dbo = db.db("my-test-db");
-    console.log("Connected to MongoDB");
+  db.createCollection("issues");
+  await db.collection("issues").insertMany(issuesDB);
+  const count = await db.collection("issues").count();
+  console.log('Inserted ', count, ' issues');
+  
+  db.collection("issues").createIndex({ id: 1 }, { unique: true });
+  db.collection("issues").createIndex({ status: 1 });
+  db.collection("issues").createIndex({ owner: 1 });
+  db.collection("issues").createIndex({ created: 1 });
 
-    const collection = dbo.collection("calls");
-    const message = {
-      message: "Mensaje de prueba desde trymongo.ts",
-      scope: "trymongo.ts",
-      host: "LAPTOP-GM0OSER6",
-      date: "2022-12-10T11:58:24.724+00:00",
-      location: "America/Montevideo",
-      offset: "UTC-3",
-    };
-    collection.insertOne(message, function (err: any, result: any) {
-      if (err) {
-        MongoClient.close();
-        callback(err);
-        return;
-      }
-      console.log("Result of insert:\n", result.insertedId);
-      collection
-        .find({ _id: result.insertedId })
-        .toArray(function (err: any, docs: any) {
-          if (err) {
-            MongoClient.close();
-            callback(err);
-            return;
-          }
-          console.log("Result of find:\n", docs);
-          MongoClient.close();
-          callback(err);
-        });
-    });
-  }); // connect
 }
 
-testWithCallbacks(function (err: any) {
-  if (err) {
-    console.log(err);
-  }
-});
-*/
+
+//show("sample_training","companies");
+//show("sample_restaurants","restaurants");
+initialiceSchema();
