@@ -1,3 +1,6 @@
+import React = require("react");
+import ReactDOM = require("react-dom");
+
 interface Issue {
   id?: number;
   status: string;

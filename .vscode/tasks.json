@@ -5,6 +5,7 @@
 	"tasks": [
 		{
 			"label": "start",
+			"path": "ui",
 			"type": "npm",
 			"script": "start",
 			"group": {

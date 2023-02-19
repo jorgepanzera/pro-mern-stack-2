@@ -1,14 +1,12 @@
 {
-  "name": "pro-mern-stack-2",
+  "name": "pro-mern-stack-2-api",
   "version": "1.0.0",
-  "description": "Testing MERN",
-  "main": "index.js",
+  "description": "Testing MERN API",
+  "main": "server.ts",
   "scripts": {
-    "start": "npx nodemon --require babel-register -w server server/server.ts",
-    "compile": "babel src --out-dir public --extensions '.js,.ts,.tsx,.jsx'",
-    "watch": "babel src --out-dir public --watch --verbose --extensions '.js,.ts,.tsx,.jsx'",
+    "start": "npx nodemon --require babel-register server.ts",
     "compile_scripts": "babel scripts --out-dir scripts --extensions '.js,.ts,.tsx,.jsx'",
-    "compile_server": "babel server --out-dir server --extensions '.js,.ts,.tsx,.jsx'",    
+    "compile_api": "babel api --out-dir api --extensions '.js,.ts,.tsx,.jsx'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "trymongojs": "node scripts/trymongo.js",
     "trymongo": "npx ts-node scripts/trymongo.ts"
@@ -19,7 +17,6 @@
     "express": "^4.18.2",
     "mongodb": "^5.0.1",
     "nodemon": "^2.0.20",
-    "path": "^0.12.7",
     "typescript": "^4.9.5"
   },
   "devDependencies": {
@@ -30,6 +27,7 @@
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
+    "@types/node": "^18.14.0",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "babel-register": "^6.26.0",
