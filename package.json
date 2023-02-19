@@ -4,10 +4,11 @@
   "description": "Testing MERN",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --require babel-register -w server server/server.js",
+    "start": "npx nodemon --require babel-register -w server server/server.ts",
     "compile": "babel src --out-dir public --extensions '.js,.ts,.tsx,.jsx'",
     "watch": "babel src --out-dir public --watch --verbose --extensions '.js,.ts,.tsx,.jsx'",
     "compile_scripts": "babel scripts --out-dir scripts --extensions '.js,.ts,.tsx,.jsx'",
+    "compile_server": "babel server --out-dir server --extensions '.js,.ts,.tsx,.jsx'",    
     "test": "echo \"Error: no test specified\" && exit 1",
     "trymongojs": "node scripts/trymongo.js",
     "trymongo": "npx ts-node scripts/trymongo.ts"

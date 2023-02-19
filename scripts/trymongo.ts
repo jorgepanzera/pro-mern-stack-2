@@ -1,5 +1,9 @@
 // local connection string en docker
 
+
+export {}; // para que las const sean locales a este archivo
+
+
 //const url = `mongodb://localhost:27017/`;
 //const url = `mongodb://0.0.0.0:27017/`;
 //const url = `mongodb://172.17.0.2:27017/`;
@@ -10,7 +14,7 @@ const url = `mongodb+srv://admin:Ji9vfIASQ7NnFwN8@cluster0.30imzhm.mongodb.net`;
 const MongoClient = require("mongodb").MongoClient;
 const client = new MongoClient(url, { useNewUrlParser: true });
 
-let db: any;
+let db : any;
 
 async function listCollection(database_name: string, collection_name: string) : Promise<any> {
   await connectToDb(database_name);
