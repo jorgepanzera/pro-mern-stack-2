@@ -160,7 +160,8 @@ class IssueList extends React.Component<IssueListProps, IssueListState> {
     this.createIssue = this.createIssue.bind(this); // para poder usarlo en child elements, y que this siga apuntando a IssueList
   }
 
-  loadData() {
+  async loadData() {
+    // Aca va el fetch a la api GET ALL cuando exista
     setTimeout(() => {
       this.setState({ issues: initialIssues });
     }, 1000);

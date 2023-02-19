@@ -19,8 +19,10 @@ const client = new MongoClient(url, { useNewUrlParser: true });
 
 let db: any;
 
-async function issueList() {
+export async function issueListfromServer() {
+  // con esta se obtienen todos los issues, GET ALL
   const issues = await db.collection("issues").find({}).toArray();
+  console.log(issues);
   return issues;
 }
 
