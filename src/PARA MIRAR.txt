@@ -1,9 +1,4 @@
-https://michele.io/nodemon-babel-vscode/
 
-Para ver como hacer funcionar el watch + nodemon con VSCode
-
-https://github.com/kube/vscode-ts-webpack-node-debug-example.git
-Proyecto con webpack y typescript que se puede debuguear en vscode
 
 MongoDb en docker local
 //const url = `mongodb://localhost:27017/`;
@@ -16,3 +11,13 @@ fullstack
 Ji9vfIASQ7NnFwN8
 	Connection String
 	mongodb+srv://admin:Ji9vfIASQ7NnFwN8@cluster0.30imzhm.mongodb.net/test
+
+-- Repositorio con ejemplo de rest API
+https://github.com/joeythelantern/Mongoose-Typescript-In-Depth
+
+https://michele.io/nodemon-babel-vscode/
+
+Para ver como hacer funcionar el watch + nodemon con VSCode
+
+https://github.com/kube/vscode-ts-webpack-node-debug-example.git
+Proyecto con webpack y typescript que se puede debuguear en vscode
