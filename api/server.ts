@@ -1,11 +1,13 @@
 // Importar express http server
 const express = require("express");
 
+const http = require("http");
+
 // crear aplicacion express
 const app = express();
 
 // para usar el absolute path de una aplicacion
-const path = require("path");
+import path = require("path");
 
 //const url = `mongodb://localhost:27017/`;
 //const url = `mongodb://0.0.0.0:27017/`;
@@ -19,10 +21,9 @@ const client = new MongoClient(url, { useNewUrlParser: true });
 
 let db: any;
 
-export async function issueListfromServer() {
+async function issueListfromServer() : Promise<any[]> {
   // con esta se obtienen todos los issues, GET ALL
   const issues = await db.collection("issues").find({}).toArray();
-  console.log(issues);
   return issues;
 }
 
@@ -32,16 +33,24 @@ async function connectToDb(database_name: string) {
   db = client.db(database_name);
 }
 
-// funcion de express static para acceder al contenido de una carpeta
-//console.log(path.join(__dirname, 'public'));
-/*
-const fileServerMiddlewareconst = express.static(
-  path.join(__dirname, "..", "public")
-); // _dirname/.. me deja en la carpeta raiz
+// HealthCheck - metodo get simple para comprobar que esta "vivo" el servicio
+app.get("/ping", (req: any, res: any, next: void) =>
+  res.status(200).json({ hello: "world" })
+);
 
-// usar dicha carpeta
-app.use("/", fileServerMiddlewareconst);
-*/
+
+app.get("/issues", async (req: any, res: any, next: void) => {
+  try {
+    let issues = await issueListfromServer();
+    res.status(200).json({ issues })
+  }
+  catch (error) {
+    res.status(500).json({ error })
+  }
+}
+
+);
+
 
 // start server en puerto 3000
 (async function () {

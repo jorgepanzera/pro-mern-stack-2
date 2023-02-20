@@ -17,32 +17,44 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+var dateRegex = new RegExp("^\\d\\d\\d\\d-\\d\\d-\\d\\d");
+function jsonDateReviver(key, value) {
+  if (dateRegex.test(value)) return new Date(value);
+  return value;
+}
+
 // Array de issues, simulando un fetch de una API o db
-var initialIssues = [{
-  id: 1,
-  status: "New",
-  owner: "Ravan",
-  effort: 5,
-  created: new Date("2018-08-15"),
-  due: undefined,
-  issue_title: "Error in console when clicking Add"
-}, {
-  id: 2,
-  status: "Assigned",
-  owner: "Eddie",
-  effort: 14,
-  created: new Date("2018-08-16"),
-  due: new Date("2018-08-30"),
-  issue_title: "Missing bottom border on panel"
-}, {
-  id: 3,
-  status: "Ready",
-  owner: "Sofi",
-  effort: 33,
-  created: new Date("2023-09-27"),
-  due: new Date("2023-10-30"),
-  issue_title: "Read all book in English"
-}];
+/*
+const initialIssues = [
+  {
+    id: 1,
+    status: "New",
+    owner: "Ravan",
+    effort: 5,
+    created: new Date("2018-08-15"),
+    due: undefined,
+    issue_title: "Error in console when clicking Add",
+  },
+  {
+    id: 2,
+    status: "Assigned",
+    owner: "Eddie",
+    effort: 14,
+    created: new Date("2018-08-16"),
+    due: new Date("2018-08-30"),
+    issue_title: "Missing bottom border on panel",
+  },
+  {
+    id: 3,
+    status: "Ready",
+    owner: "Sofi",
+    effort: 33,
+    created: new Date("2023-09-27"),
+    due: new Date("2023-10-30"),
+    issue_title: "Read all book in English",
+  },
+];
+*/
 
 // Definir props y state para cada componente
 var IssueFilter = /*#__PURE__*/function (_React$Component) {
@@ -146,21 +158,29 @@ var IssueList = /*#__PURE__*/function (_React$Component3) {
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var _this3 = this;
+        var data;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              // Aca va el fetch a la api GET ALL cuando exista
-              setTimeout(function () {
-                _this3.setState({
-                  issues: initialIssues
+              _context.next = 2;
+              return request("http://localhost:3000/issues", {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              });
+            case 2:
+              data = _context.sent;
+              if (data) {
+                this.setState({
+                  issues: data
                 });
-              }, 1000);
-            case 1:
+              }
+            case 4:
             case "end":
               return _context.stop();
           }
-        }, _callee);
+        }, _callee, this);
       }));
       function loadData() {
         return _loadData.apply(this, arguments);
@@ -209,7 +229,59 @@ function IsFormFieldElement(element) {
     throw new Error("Element is not a form field element");
   }
 }
+function request(_x, _x2) {
+  return _request.apply(this, arguments);
+}
+/*
+async function graphQLFetch(query, variables = {}) {
+  try {
+    const response = await fetch('http://localhost:3000/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({ query, variables })
+    });
+    const body = await response.text();
+    const result = JSON.parse(body, jsonDateReviver);
 
+    if (result.errors) {
+      const error = result.errors[0];
+      if (error.extensions.code == 'BAD_USER_INPUT') {
+        const details = error.extensions.exception.errors.join('\n ');
+        alert(`${error.message}:\n ${details}`);
+      } else {
+        alert(`${error.extensions.code}: ${error.message}`);
+      }
+    }
+    return result.data;
+  } catch (e) {
+    alert(`Error in sending data to server: ${e.message}`);
+  }
+}
+*/
 // Crear issue list
+function _request() {
+  _request = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(request_url, config) {
+    var response, body, result;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.next = 2;
+          return fetch(request_url, config);
+        case 2:
+          response = _context2.sent;
+          _context2.next = 5;
+          return response.text();
+        case 5:
+          body = _context2.sent;
+          result = JSON.parse(body, jsonDateReviver);
+          return _context2.abrupt("return", result.data);
+        case 8:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2);
+  }));
+  return _request.apply(this, arguments);
+}
 ReactDOM.render(React.createElement(IssueList), document.getElementById("contents"));
 //# sourceMappingURL=App.js.map

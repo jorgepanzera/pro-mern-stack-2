@@ -1,6 +1,3 @@
-import React = require("react");
-import ReactDOM = require("react-dom");
-
 interface Issue {
   id?: number;
   status: string;
@@ -11,7 +8,15 @@ interface Issue {
   issue_title: string;
 }
 
+const dateRegex = new RegExp("^\\d\\d\\d\\d-\\d\\d-\\d\\d");
+
+function jsonDateReviver(key: any, value: any) {
+  if (dateRegex.test(value)) return new Date(value);
+  return value;
+}
+
 // Array de issues, simulando un fetch de una API o db
+/*
 const initialIssues = [
   {
     id: 1,
@@ -41,6 +46,7 @@ const initialIssues = [
     issue_title: "Read all book in English",
   },
 ];
+*/
 
 // Definir props y state para cada componente
 type IssueFilterProps = {};
@@ -165,9 +171,11 @@ class IssueList extends React.Component<IssueListProps, IssueListState> {
 
   async loadData() {
     // Aca va el fetch a la api GET ALL cuando exista
-    setTimeout(() => {
-      this.setState({ issues: initialIssues });
-    }, 1000);
+    const data = await request("http://localhost:3000/issues", {method:'GET', headers: { 'Content-Type': 'application/json'}});
+
+    if (data) {
+      this.setState({ issues: data as Issue[] });
+    }
   }
 
   createIssue(issue: Issue) {
@@ -211,6 +219,45 @@ function IsFormFieldElement(
     throw new Error(`Element is not a form field element`);
   }
 }
+
+
+async function request<TResponse>(
+  request_url: string,
+  config: RequestInit
+): Promise<TResponse> {
+  const response = await fetch(request_url, config);
+
+  const body = await response.text();
+  const result = JSON.parse(body, jsonDateReviver);
+  return result.data;
+}
+
+/*
+async function graphQLFetch(query, variables = {}) {
+  try {
+    const response = await fetch('http://localhost:3000/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({ query, variables })
+    });
+    const body = await response.text();
+    const result = JSON.parse(body, jsonDateReviver);
+
+    if (result.errors) {
+      const error = result.errors[0];
+      if (error.extensions.code == 'BAD_USER_INPUT') {
+        const details = error.extensions.exception.errors.join('\n ');
+        alert(`${error.message}:\n ${details}`);
+      } else {
+        alert(`${error.extensions.code}: ${error.message}`);
+      }
+    }
+    return result.data;
+  } catch (e) {
+    alert(`Error in sending data to server: ${e.message}`);
+  }
+}
+*/
 
 // Crear issue list
 ReactDOM.render(
