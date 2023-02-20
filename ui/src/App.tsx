@@ -171,10 +171,17 @@ class IssueList extends React.Component<IssueListProps, IssueListState> {
 
   async loadData() {
     // Aca va el fetch a la api GET ALL cuando exista
-    const data = await request("http://localhost:3000/issues", {method:'GET', headers: { 'Content-Type': 'application/json'}});
+    try {
+      const data = await request("http://localhost:3000/issues", {
+        method: "GET",
+        headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'http://localhost:3000' },
+      });
 
-    if (data) {
-      this.setState({ issues: data as Issue[] });
+      if (data) {
+        this.setState({ issues: data as Issue[] });
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -219,7 +226,6 @@ function IsFormFieldElement(
     throw new Error(`Element is not a form field element`);
   }
 }
-
 
 async function request<TResponse>(
   request_url: string,

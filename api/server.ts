@@ -21,7 +21,7 @@ const client = new MongoClient(url, { useNewUrlParser: true });
 
 let db: any;
 
-async function issueListfromServer() : Promise<any[]> {
+async function issueListfromServer(): Promise<any[]> {
   // con esta se obtienen todos los issues, GET ALL
   const issues = await db.collection("issues").find({}).toArray();
   return issues;
@@ -33,24 +33,23 @@ async function connectToDb(database_name: string) {
   db = client.db(database_name);
 }
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+
 // HealthCheck - metodo get simple para comprobar que esta "vivo" el servicio
 app.get("/ping", (req: any, res: any, next: void) =>
   res.status(200).json({ hello: "world" })
 );
 
-
 app.get("/issues", async (req: any, res: any, next: void) => {
   try {
     let issues = await issueListfromServer();
-    res.status(200).json({ issues })
+    res.status(200).json({ issues });
+  } catch (error) {
+    res.status(500).json({ error });
   }
-  catch (error) {
-    res.status(500).json({ error })
-  }
-}
-
-);
-
+});
 
 // start server en puerto 3000
 (async function () {
