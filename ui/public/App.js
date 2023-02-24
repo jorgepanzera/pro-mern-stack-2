@@ -80,6 +80,7 @@ function IssueRow(props, state) {
 }
 function IssueTable(props, state) {
   // Iterar con map en el array de issues del state, key para unique id de cada fila
+  //console.log(props.issues);
   var issuesRows = props.issues.map(function (issue) {
     return /*#__PURE__*/React.createElement(IssueRow, {
       key: issue.id,
@@ -101,7 +102,9 @@ var IssueAdd = /*#__PURE__*/function (_React$Component2) {
     _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (event) {
       var _form$owner, _form$issue_title, _form$owner2, _form$issue_title2;
       event.preventDefault();
-      console.log(event.currentTarget);
+
+      //console.log(event.currentTarget);
+
       var form = document.forms.namedItem("IssueSubmit");
       //const form = event.currentTarget;
 
@@ -154,41 +157,69 @@ var IssueList = /*#__PURE__*/function (_React$Component3) {
     _this2.createIssue = _this2.createIssue.bind(_assertThisInitialized(_this2)); // para poder usarlo en child elements, y que this siga apuntando a IssueList
     return _this2;
   }
+
+  /*
+  async loadData() {
+    // Aca va el fetch a la api GET ALL cuando exista
+    try {
+      const data = await request("http://localhost:3000/issues", {
+        method: "GET",
+        headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'http://localhost:3000' },
+      });
+        if (data) {
+        this.setState({ issues: data as Issue[] });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }*/
   _createClass(IssueList, [{
     key: "loadData",
     value: function () {
       var _loadData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var data;
+        var requestOptions, response, body, result;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.prev = 0;
-              _context.next = 3;
-              return request("http://localhost:3000/issues", {
+              requestOptions = {
                 method: "GET",
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Access-Control-Allow-Origin': 'http://localhost:3000'
-                }
-              });
-            case 3:
-              data = _context.sent;
-              if (data) {
+                redirect: "follow"
+              }; // consumir la api utilizando la libreria fetch
+              _context.prev = 1;
+              _context.next = 4;
+              return fetch("http://localhost:3000/issues", requestOptions);
+            case 4:
+              response = _context.sent;
+              _context.next = 7;
+              return response.text();
+            case 7:
+              body = _context.sent;
+              console.log(body);
+              result = JSON.parse(body, jsonDateReviver);
+              console.log(result);
+              if (result) {
                 this.setState({
-                  issues: data
+                  issues: result === null || result === void 0 ? void 0 : result.issues
                 });
               }
-              _context.next = 10;
+              /*
+              let data = await request("http://localhost:3000/issues", requestOptions)
+               if (data) {
+                 //this.setState({ issues: result?.issues as Issue[] });
+                 this.setState({ issues: data?.issues as Issue[] });
+               }
+               */
+              _context.next = 17;
               break;
-            case 7:
-              _context.prev = 7;
-              _context.t0 = _context["catch"](0);
-              console.log(_context.t0);
-            case 10:
+            case 14:
+              _context.prev = 14;
+              _context.t0 = _context["catch"](1);
+              throw new Error("Error consumiendo API openweathermap.org : ".concat(_context.t0));
+            case 17:
             case "end":
               return _context.stop();
           }
-        }, _callee, this, [[0, 7]]);
+        }, _callee, this, [[1, 14]]);
       }));
       function loadData() {
         return _loadData.apply(this, arguments);
@@ -282,7 +313,7 @@ function _request() {
         case 5:
           body = _context2.sent;
           result = JSON.parse(body, jsonDateReviver);
-          return _context2.abrupt("return", result.data);
+          return _context2.abrupt("return", result);
         case 8:
         case "end":
           return _context2.stop();

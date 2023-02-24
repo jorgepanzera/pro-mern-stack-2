@@ -1,20 +1,19 @@
 // Importar express http server
 const express = require("express");
-
+const cors = require("cors");
 const http = require("http");
 
 // crear aplicacion express
 const app = express();
 
 // para usar el absolute path de una aplicacion
-import path = require("path");
 
 //const url = `mongodb://localhost:27017/`;
-//const url = `mongodb://0.0.0.0:27017/`;
+const url = `mongodb://0.0.0.0:27017/`;
 //const url = `mongodb://172.17.0.2:27017/`;
 
 // Mongodb Atlas connection string
-const url = `mongodb+srv://admin:Ji9vfIASQ7NnFwN8@cluster0.30imzhm.mongodb.net`;
+//const url = `mongodb+srv://admin:Ji9vfIASQ7NnFwN8@cluster0.30imzhm.mongodb.net`;
 
 const MongoClient = require("mongodb").MongoClient;
 const client = new MongoClient(url, { useNewUrlParser: true });
@@ -35,7 +34,7 @@ async function connectToDb(database_name: string) {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(cors());
 
 // HealthCheck - metodo get simple para comprobar que esta "vivo" el servicio
 app.get("/ping", (req: any, res: any, next: void) =>

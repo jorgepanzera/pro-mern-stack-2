@@ -88,6 +88,7 @@ type IssueTableState = {};
 
 function IssueTable(props: IssueTableProps, state: IssueTableState) {
   // Iterar con map en el array de issues del state, key para unique id de cada fila
+  //console.log(props.issues);
   const issuesRows = props.issues.map((issue) => (
     <IssueRow key={issue.id} issue={issue} />
   ));
@@ -125,7 +126,7 @@ class IssueAdd extends React.Component<IssueAddProps, IssueAddState> {
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log(event.currentTarget);
+    //console.log(event.currentTarget);
 
     const form = document.forms.namedItem("IssueSubmit") as HTMLFormElement;
     //const form = event.currentTarget;
@@ -169,6 +170,7 @@ class IssueList extends React.Component<IssueListProps, IssueListState> {
     this.createIssue = this.createIssue.bind(this); // para poder usarlo en child elements, y que this siga apuntando a IssueList
   }
 
+  /*
   async loadData() {
     // Aca va el fetch a la api GET ALL cuando exista
     try {
@@ -182,6 +184,37 @@ class IssueList extends React.Component<IssueListProps, IssueListState> {
       }
     } catch (error) {
       console.log(error);
+    }
+  }*/
+
+  async loadData() {
+    let requestOptions: RequestInit = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    // consumir la api utilizando la libreria fetch
+    try {
+      let response = await fetch(
+        "http://localhost:3000/issues",
+        requestOptions
+      );
+      let body = await response.text();
+      console.log(body);
+      let result = JSON.parse(body, jsonDateReviver);
+      console.log(result);
+      if (result) {
+        this.setState({ issues: result?.issues as Issue[] });
+      }
+     /*
+     let data = await request("http://localhost:3000/issues", requestOptions)
+      if (data) {
+        //this.setState({ issues: result?.issues as Issue[] });
+        this.setState({ issues: data?.issues as Issue[] });
+      }
+      */
+    } catch (err) {
+      throw new Error(`Error consumiendo API openweathermap.org : ${err}`);
     }
   }
 
@@ -227,6 +260,7 @@ function IsFormFieldElement(
   }
 }
 
+
 async function request<TResponse>(
   request_url: string,
   config: RequestInit
@@ -235,8 +269,9 @@ async function request<TResponse>(
 
   const body = await response.text();
   const result = JSON.parse(body, jsonDateReviver);
-  return result.data;
+  return result;
 }
+
 
 /*
 async function graphQLFetch(query, variables = {}) {
