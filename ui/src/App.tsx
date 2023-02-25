@@ -82,6 +82,7 @@ function IssueRow(props: IssueRowProps, state: IssueRowState) {
 type IssueTableProps = {
   issues: Issue[];
   tableStyle: React.CSSProperties;
+  tableClass:string,
 };
 
 type IssueTableState = {};
@@ -93,9 +94,10 @@ function IssueTable(props: IssueTableProps, state: IssueTableState) {
     <IssueRow key={issue.id} issue={issue} />
   ));
   const tableStyle = props.tableStyle;
+  const tableClass = props.tableClass;
 
   return (
-    <table style={tableStyle}>
+    <table className={tableClass} style={tableStyle}>
       <thead>
         <tr>
           <th>ID</th>
@@ -232,18 +234,20 @@ class IssueList extends React.Component<IssueListProps, IssueListState> {
   }
 
   render() {
-    const tableStyle: React.CSSProperties = {
-      marginLeft: "auto",
+    const tableStyle: React.CSSProperties = {};
+      /*marginLeft: "auto",
       marginRight: "auto",
       borderCollapse: "collapse",
-    };
+    };*/
+    // w-75 es 75% de tamanio relativo al parent, mx-auto la centra
+    const tableClass="table table-dark table-striped table-responsive w-75 mx-auto"; 
 
     return (
       <React.Fragment>
         <h1>Issue Tracker</h1>
         <IssueFilter />
         <hr />
-        <IssueTable issues={this.state.issues} tableStyle={tableStyle} />
+        <IssueTable issues={this.state.issues} tableStyle={tableStyle} tableClass={tableClass} />
         <hr />
         <IssueAdd createIssue={this.createIssue} />
       </React.Fragment>

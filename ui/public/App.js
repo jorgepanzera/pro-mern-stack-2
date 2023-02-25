@@ -88,7 +88,9 @@ function IssueTable(props, state) {
     });
   });
   var tableStyle = props.tableStyle;
+  var tableClass = props.tableClass;
   return /*#__PURE__*/React.createElement("table", {
+    className: tableClass,
     style: tableStyle
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Status"), /*#__PURE__*/React.createElement("th", null, "Owner"), /*#__PURE__*/React.createElement("th", null, "Created Date"), /*#__PURE__*/React.createElement("th", null, "Due Date"), /*#__PURE__*/React.createElement("th", null, "Title"))), /*#__PURE__*/React.createElement("tbody", null, issuesRows));
 }
@@ -247,14 +249,17 @@ var IssueList = /*#__PURE__*/function (_React$Component3) {
   }, {
     key: "render",
     value: function render() {
-      var tableStyle = {
-        marginLeft: "auto",
-        marginRight: "auto",
-        borderCollapse: "collapse"
-      };
+      var tableStyle = {};
+      /*marginLeft: "auto",
+      marginRight: "auto",
+      borderCollapse: "collapse",
+      };*/
+      // w-75 es 75% de tamanio relativo al parent, mx-auto la centra
+      var tableClass = "table table-dark table-striped table-responsive w-75 mx-auto";
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Issue Tracker"), /*#__PURE__*/React.createElement(IssueFilter, null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(IssueTable, {
         issues: this.state.issues,
-        tableStyle: tableStyle
+        tableStyle: tableStyle,
+        tableClass: tableClass
       }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(IssueAdd, {
         createIssue: this.createIssue
       }));

@@ -4,12 +4,12 @@
 export {}; // para que las const sean locales a este archivo
 
 
-//const url = `mongodb://localhost:27017/`;
+const url = `mongodb://127.0.0.1:27017/`;
 //const url = `mongodb://0.0.0.0:27017/`;
 //const url = `mongodb://172.17.0.2:27017/`;
 
 // Mongodb Atlas connection string
-const url = `mongodb+srv://admin:Ji9vfIASQ7NnFwN8@cluster0.30imzhm.mongodb.net`;
+//const url = `mongodb+srv://admin:Ji9vfIASQ7NnFwN8@cluster0.30imzhm.mongodb.net`;
 
 const MongoClient = require("mongodb").MongoClient;
 const client = new MongoClient(url, { useNewUrlParser: true });
@@ -78,6 +78,10 @@ async function initialiceSchema() {
   db.collection("issues").createIndex({ status: 1 });
   db.collection("issues").createIndex({ owner: 1 });
   db.collection("issues").createIndex({ created: 1 });
+
+  // counters collection
+  db.createCollection("counters");
+  await db.collection("counters").insertOne({ _id: 'issues', current: count });
 
 }
 
