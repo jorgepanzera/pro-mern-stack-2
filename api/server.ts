@@ -26,6 +26,10 @@ async function issueListfromServer(): Promise<any[]> {
   return issues;
 }
 
+async function countCollectionDocuments(collection_name:string) : Promise<number> {
+  return await db.collection(collection_name).count();
+}
+
 async function connectToDb(database_name: string) {
   await client.connect();
   console.log("Connected to MongoDB at", url);
@@ -49,6 +53,19 @@ app.get("/issues", async (req: any, res: any, next: void) => {
     res.status(500).json({ error });
   }
 });
+
+app.get("/test", async (req: any, res: any, next: void) => {
+  try {
+    let collection_name = req.headers.collection_name;
+    console.log(collection_name)
+    let cant = await countCollectionDocuments(collection_name);
+    res.status(200).json({ cant });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+// ARMAR app.put para dar de alta un issue, el id es countCollectionDocuments+1, el resto ver el libro
 
 // start server en puerto 3000
 (async function () {
