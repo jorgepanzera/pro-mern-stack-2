@@ -202,9 +202,9 @@ class IssueList extends React.Component<IssueListProps, IssueListState> {
         requestOptions
       );
       let body = await response.text();
-      console.log(body);
+      //console.log(body);
       let result = JSON.parse(body, jsonDateReviver);
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.setState({ issues: result?.issues as Issue[] });
       }
@@ -216,16 +216,31 @@ class IssueList extends React.Component<IssueListProps, IssueListState> {
       }
       */
     } catch (err) {
-      throw new Error(`Error consumiendo API openweathermap.org : ${err}`);
+      throw new Error(`Error loadData/GetAllIssues : ${err}`);
     }
   }
 
-  createIssue(issue: Issue) {
+  async createIssue(issue: Issue) {
+    /*
     issue.id = this.state.issues.length + 1;
     issue.created = new Date();
     const newIssueList = this.state.issues.slice();
     newIssueList.push(issue);
     this.setState({ issues: newIssueList });
+    */
+    let requestOptions: RequestInit = {method: "POST", headers: {'Content-Type': 'application/json', }, body: JSON.stringify(issue) };
+    try {
+      let response = await fetch("http://localhost:3000/issue/create", requestOptions );
+      let body = await response.text();
+      console.log(body);
+      let result = JSON.parse(body, jsonDateReviver);
+      console.log(result);
+      if (result) {
+        await this.loadData();
+      }  
+    } catch(err) {
+      throw new Error(`Error createIssue : ${err}`);      
+    }
   }
 
   // cuando el componente esta pronto para render, le asigno el state inicial

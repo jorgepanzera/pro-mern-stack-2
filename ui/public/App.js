@@ -196,9 +196,8 @@ var IssueList = /*#__PURE__*/function (_React$Component3) {
               return response.text();
             case 7:
               body = _context.sent;
-              console.log(body);
-              result = JSON.parse(body, jsonDateReviver);
-              console.log(result);
+              //console.log(body);
+              result = JSON.parse(body, jsonDateReviver); //console.log(result);
               if (result) {
                 this.setState({
                   issues: result === null || result === void 0 ? void 0 : result.issues
@@ -211,17 +210,17 @@ var IssueList = /*#__PURE__*/function (_React$Component3) {
                  this.setState({ issues: data?.issues as Issue[] });
                }
                */
-              _context.next = 17;
+              _context.next = 15;
               break;
-            case 14:
-              _context.prev = 14;
+            case 12:
+              _context.prev = 12;
               _context.t0 = _context["catch"](1);
-              throw new Error("Error consumiendo API openweathermap.org : ".concat(_context.t0));
-            case 17:
+              throw new Error("Error loadData/GetAllIssues : ".concat(_context.t0));
+            case 15:
             case "end":
               return _context.stop();
           }
-        }, _callee, this, [[1, 14]]);
+        }, _callee, this, [[1, 12]]);
       }));
       function loadData() {
         return _loadData.apply(this, arguments);
@@ -230,17 +229,62 @@ var IssueList = /*#__PURE__*/function (_React$Component3) {
     }()
   }, {
     key: "createIssue",
-    value: function createIssue(issue) {
-      issue.id = this.state.issues.length + 1;
-      issue.created = new Date();
-      var newIssueList = this.state.issues.slice();
-      newIssueList.push(issue);
-      this.setState({
-        issues: newIssueList
-      });
-    }
-
-    // cuando el componente esta pronto para render, le asigno el state inicial
+    value: function () {
+      var _createIssue = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(issue) {
+        var requestOptions, response, body, result;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              /*
+              issue.id = this.state.issues.length + 1;
+              issue.created = new Date();
+              const newIssueList = this.state.issues.slice();
+              newIssueList.push(issue);
+              this.setState({ issues: newIssueList });
+              */
+              requestOptions = {
+                method: "POST",
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(issue)
+              };
+              _context2.prev = 1;
+              _context2.next = 4;
+              return fetch("http://localhost:3000/issue/create", requestOptions);
+            case 4:
+              response = _context2.sent;
+              _context2.next = 7;
+              return response.text();
+            case 7:
+              body = _context2.sent;
+              console.log(body);
+              result = JSON.parse(body, jsonDateReviver);
+              console.log(result);
+              if (!result) {
+                _context2.next = 14;
+                break;
+              }
+              _context2.next = 14;
+              return this.loadData();
+            case 14:
+              _context2.next = 19;
+              break;
+            case 16:
+              _context2.prev = 16;
+              _context2.t0 = _context2["catch"](1);
+              throw new Error("Error createIssue : ".concat(_context2.t0));
+            case 19:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this, [[1, 16]]);
+      }));
+      function createIssue(_x) {
+        return _createIssue.apply(this, arguments);
+      }
+      return createIssue;
+    }() // cuando el componente esta pronto para render, le asigno el state inicial
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
@@ -273,7 +317,7 @@ function IsFormFieldElement(element) {
     throw new Error("Element is not a form field element");
   }
 }
-function request(_x, _x2) {
+function request(_x2, _x3) {
   return _request.apply(this, arguments);
 }
 /*
@@ -304,26 +348,26 @@ async function graphQLFetch(query, variables = {}) {
 */
 // Crear issue list
 function _request() {
-  _request = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(request_url, config) {
+  _request = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(request_url, config) {
     var response, body, result;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
         case 0:
-          _context2.next = 2;
+          _context3.next = 2;
           return fetch(request_url, config);
         case 2:
-          response = _context2.sent;
-          _context2.next = 5;
+          response = _context3.sent;
+          _context3.next = 5;
           return response.text();
         case 5:
-          body = _context2.sent;
+          body = _context3.sent;
           result = JSON.parse(body, jsonDateReviver);
-          return _context2.abrupt("return", result);
+          return _context3.abrupt("return", result);
         case 8:
         case "end":
-          return _context2.stop();
+          return _context3.stop();
       }
-    }, _callee2);
+    }, _callee3);
   }));
   return _request.apply(this, arguments);
 }

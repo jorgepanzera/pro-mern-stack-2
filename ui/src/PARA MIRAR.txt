@@ -15,9 +15,18 @@ Ji9vfIASQ7NnFwN8
 -- Repositorio con ejemplo de rest API
 https://github.com/joeythelantern/Mongoose-Typescript-In-Depth
 
+
+--Para ver como hacer funcionar el watch + nodemon con VSCode
 https://michele.io/nodemon-babel-vscode/
 
-Para ver como hacer funcionar el watch + nodemon con VSCode
 
+--Proyecto con webpack y typescript que se puede debuguear en vscode
 https://github.com/kube/vscode-ts-webpack-node-debug-example.git
-Proyecto con webpack y typescript que se puede debuguear en vscode
+
+
+
+-- CORS y permisos de consumo de APIs, metodos
+https://stackabuse.com/handling-cors-with-node-js/
+
+--Setear routes con require
+https://stackoverflow.com/questions/68046544/how-to-allow-cors-in-nodejs-14
