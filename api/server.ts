@@ -44,17 +44,21 @@ app.use(express.json());
 app.use(cors()); // permitir consumir todos los metodos desde cualquier dominio
 
 // Logging de todo lo que entra a la API
+/*
 app.use((req:any, res:any, next:void) => {
   
-  /** Log the req */
+  // Log the req 
   console.log(`Incomming - METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
 
   res.on('finish', () => {
-      /** Log the res */
+      // Log the res 
       console.log(`Result - METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}] - STATUS: [${res.statusCode}]`);
   });
 
+  next() // SI EL next no funciona, no andan los demas get/post etc 
+
 });
+*/
 
 // HealthCheck - metodo get simple para comprobar que esta "vivo" el servicio
 app.get("/ping", (req: any, res: any, next: void) =>
@@ -71,6 +75,12 @@ app.get("/issues", async (req: any, res: any, next: void) => {
   }
 });
 
+
+// post de prueba
+app.post("/", (req:any, res:any ) => {
+  res.send("Hice un post");
+}
+);
 
 // CreateIssue - POST
 app.post("/issue/create", async (req: any, res: any, next: void) => {
@@ -110,7 +120,6 @@ async function getNextSequence(collection_name: string): Promise<number> {
   return result.value.current;
 }
 
-// ARMAR app.put para dar de alta un issue, el id es countCollectionDocuments+1, el resto ver el libro
 
 // start server en puerto 3000
 (async function () {
