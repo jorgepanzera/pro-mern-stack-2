@@ -44,8 +44,8 @@ app.use(express.json());
 app.use(cors()); // permitir consumir todos los metodos desde cualquier dominio
 
 // Logging de todo lo que entra a la API
-/*
-app.use((req:any, res:any, next:void) => {
+
+app.use((req:any, res:any, next: () => {}) => { // defino una funcion next que no hace nada, solo para que el app.use la pueda llamar
   
   // Log the req 
   console.log(`Incomming - METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
@@ -55,10 +55,10 @@ app.use((req:any, res:any, next:void) => {
       console.log(`Result - METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}] - STATUS: [${res.statusCode}]`);
   });
 
-  next() // SI EL next no funciona, no andan los demas get/post etc 
+  next(); 
 
 });
-*/
+
 
 // HealthCheck - metodo get simple para comprobar que esta "vivo" el servicio
 app.get("/ping", (req: any, res: any, next: void) =>
