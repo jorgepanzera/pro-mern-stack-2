@@ -17,12 +17,10 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-/*
-const API_URL = process.env.UI_API_ENDPOINT;
-
-console.log(`${API_URL}/issues`);
-*/
-
+// obtener variable de entorno para la API URL, es a traves del env.js (en index.hmtl) 
+// que arma en runtime el  uiserver.ts con el metodo get
+var API_URL = window.ENV.UI_API_ENDPOINT;
+console.log("".concat(API_URL, "/issues"));
 var dateRegex = new RegExp("^\\d\\d\\d\\d-\\d\\d-\\d\\d");
 function jsonDateReviver(key, value) {
   if (dateRegex.test(value)) return new Date(value);

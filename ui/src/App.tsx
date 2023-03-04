@@ -8,11 +8,13 @@ interface Issue {
   issue_title: string;
 }
 
-/*
-const API_URL = process.env.UI_API_ENDPOINT;
+
+// obtener variable de entorno para la API URL, es a traves del env.js (en index.hmtl) 
+// que arma en runtime el  uiserver.ts con el metodo get
+const API_URL = window.ENV.UI_API_ENDPOINT;
 
 console.log(`${API_URL}/issues`);
-*/
+
 
 const dateRegex = new RegExp("^\\d\\d\\d\\d-\\d\\d-\\d\\d");
 

@@ -30,3 +30,6 @@ https://stackabuse.com/handling-cors-with-node-js/
 
 --Setear routes con require
 https://stackoverflow.com/questions/68046544/how-to-allow-cors-in-nodejs-14
+
+-- Extender variables globales en typescript (para evitar falla de compilacion que en js no ocurren)
+https://bobbyhadz.com/blog/typescript-extend-window

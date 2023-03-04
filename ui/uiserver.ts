@@ -13,7 +13,7 @@ require("dotenv").config();
 // port para el ui server
 const port = process.env.UI_SERVER_PORT;
 
-const UI_API_ENDPOINT = process.env.UI_API_ENDPOINT || "http://localhost:3000/graphql";
+const UI_API_ENDPOINT = process.env.UI_API_ENDPOINT || "http://localhost:3000";
 const env = { UI_API_ENDPOINT };
 
 // get para generar en runtime un env.js, que expone un WINDOW.ENV con el valor obtenido en el .env para el api endpoint
