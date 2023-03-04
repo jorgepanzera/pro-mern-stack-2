@@ -8,6 +8,12 @@ interface Issue {
   issue_title: string;
 }
 
+/*
+const API_URL = process.env.UI_API_ENDPOINT;
+
+console.log(`${API_URL}/issues`);
+*/
+
 const dateRegex = new RegExp("^\\d\\d\\d\\d-\\d\\d-\\d\\d");
 
 function jsonDateReviver(key: any, value: any) {

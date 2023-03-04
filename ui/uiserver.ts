@@ -10,16 +10,22 @@ const path = require("path");
 // dotenv para multiples ambientes
 require("dotenv").config();
 
+// port para el ui server
 const port = process.env.UI_SERVER_PORT;
+
+const UI_API_ENDPOINT = process.env.UI_API_ENDPOINT || "http://localhost:3000/graphql";
+const env = { UI_API_ENDPOINT };
+
+// get para generar en runtime un env.js, que expone un WINDOW.ENV con el valor obtenido en el .env para el api endpoint
+app.get("/env.js", function (req: any, res: any) {
+  res.send(`window.ENV = ${JSON.stringify(env)}`);
+});
 
 // funcion de express static para acceder al contenido de una carpeta
 //console.log(path.join(__dirname, 'public'));
 const fileServerMiddlewareconst = express.static(
-
   path.join(__dirname, "public")
-
 ); // _dirname/.. me deja en la carpeta raiz
-
 
 // usar dicha carpeta
 app.use("/", fileServerMiddlewareconst);

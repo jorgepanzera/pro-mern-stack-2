@@ -20,13 +20,11 @@
 </head>
 
 <body>
-  <div id="contents" style="text-align:center"  ></div>
+  <div id="contents" class="container text-center"  ></div>
 
-  <script src = "App.js" >
-
-
-
-  </script>
+  <!--<script> var exports = {}; </script> para resolver Uncaught ReferenceError: exports is not defined en el transpile ts hacia js --> 
+  <script src = "env.js"> </script> <!-- script generado en runtime por el uiserver, para guardar global con url de la API a consumir-->
+  <script src = "App.js" >   </script>
 </body>
 
 </html>
