@@ -2,18 +2,24 @@
 const express = require("express");
 const cors = require("cors");
 const http = require("http");
+require("dotenv").config();
 
 // crear aplicacion express
 const app = express();
 
 // para usar el absolute path de una aplicacion
 
-//const url = `mongodb://localhost:27017/`;
-const url = `mongodb://0.0.0.0:27017/`;
+// Desde archivo .env con default local
+const url = process.env.DB_URL || `mongodb://0.0.0.0:27017/`;
 //const url = `mongodb://172.17.0.2:27017/`;
-
+//const url = `mongodb://localhost:27017/`;
 // Mongodb Atlas connection string
 //const url = `mongodb+srv://admin:Ji9vfIASQ7NnFwN8@cluster0.30imzhm.mongodb.net`;
+
+// port para la API, desde archivo .env con default 3000
+const port = process.env.API_SERVER_PORT || 3000;
+
+
 
 const MongoClient = require("mongodb").MongoClient;
 const client = new MongoClient(url, { useNewUrlParser: true });
@@ -125,8 +131,8 @@ async function getNextSequence(collection_name: string): Promise<number> {
 (async function () {
   try {
     await connectToDb("issuetracker");
-    app.listen(3000, function () {
-      console.log("API server started on port 3000");
+    app.listen(port, function () {
+      console.log(`API server started on port ${port}`);
     });
   } catch (err) {
     console.log("ERROR:", err);

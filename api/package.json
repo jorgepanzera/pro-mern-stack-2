@@ -4,7 +4,7 @@
   "description": "Testing MERN API",
   "main": "server.ts",
   "scripts": {
-    "start": "npx nodemon --require babel-register server.ts",
+    "start": "npx nodemon --require babel-register -w . -w .env server.ts",
     "compile_scripts": "babel scripts --out-dir scripts --extensions '.js,.ts,.tsx,.jsx'",
     "compile_api": "babel api --out-dir api --extensions '.js,.ts,.tsx,.jsx'",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongodb": "^5.0.1",
     "nodemon": "^2.0.20",

@@ -4,7 +4,7 @@
   "description": "Testing MERN UI",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon --require babel-register uiserver.ts",
+    "start": "npx nodemon --require babel-register -w . -w .env uiserver.ts",
     "compile": "babel src --out-dir public --extensions '.js,.ts,.tsx,.jsx'",
     "watch": "babel src --out-dir public --watch --verbose --extensions '.js,.ts,.tsx,.jsx'",
     "compile_server": "babel --extensions '.js,.ts,.tsx,.jsx'",
@@ -13,6 +13,7 @@
   "author": "Jorge Panzera",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "nodemon": "^2.0.20",
     "path": "^0.12.7",

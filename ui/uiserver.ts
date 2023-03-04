@@ -7,6 +7,11 @@ const app = express();
 // para usar el absolute path de una aplicacion
 const path = require("path");
 
+// dotenv para multiples ambientes
+require("dotenv").config();
+
+const port = process.env.UI_SERVER_PORT;
+
 // funcion de express static para acceder al contenido de una carpeta
 //console.log(path.join(__dirname, 'public'));
 const fileServerMiddlewareconst = express.static(
@@ -20,6 +25,6 @@ const fileServerMiddlewareconst = express.static(
 app.use("/", fileServerMiddlewareconst);
 
 // start server en puerto 3000
-app.listen(8000, function () {
-  console.log("UI started on port 8000");
+app.listen(port, function () {
+  console.log(`UI started on port ${port}`);
 });
