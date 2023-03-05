@@ -193,7 +193,7 @@ var IssueList = /*#__PURE__*/function (_React$Component3) {
               }; // consumir la api utilizando la libreria fetch
               _context.prev = 1;
               _context.next = 4;
-              return fetch("http://localhost:3000/issues", requestOptions);
+              return fetch("".concat(API_URL, "/issues"), requestOptions);
             case 4:
               response = _context.sent;
               _context.next = 7;
@@ -255,7 +255,7 @@ var IssueList = /*#__PURE__*/function (_React$Component3) {
               };
               _context2.prev = 1;
               _context2.next = 4;
-              return fetch("http://localhost:3000/issue/create", requestOptions);
+              return fetch("".concat(API_URL, "/issue/create"), requestOptions);
             case 4:
               response = _context2.sent;
               _context2.next = 7;

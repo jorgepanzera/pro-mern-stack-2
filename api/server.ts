@@ -19,10 +19,11 @@ const url = process.env.DB_URL || `mongodb://0.0.0.0:27017/`;
 // port para la API, desde archivo .env con default 3000
 const port = process.env.API_SERVER_PORT || 3000;
 
-
-
 const MongoClient = require("mongodb").MongoClient;
 const client = new MongoClient(url, { useNewUrlParser: true });
+
+const enableCors = (process.env.ENABLE_CORS || 'true') == 'true';
+console.log('CORS free:', enableCors);
 
 let db: any;
 
@@ -47,7 +48,14 @@ async function connectToDb(database_name: string) {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(cors()); // permitir consumir todos los metodos desde cualquier dominio
+// la forma de hacer segura la API serian:
+//  en el uiserver.ts establecer un proxy para llamar desde alli a la API, y no desde el browser por direct call (promernstack cap 7.3)
+//  direct calls a la API desde el browser (fetch), y que el server (este) permita todos los origines, o solamente aquellos 
+//  permitidos (que pueden setearse inclusive desde una BD) (https://stackabuse.com/handling-cors-with-node-js/)
+if (enableCors) {
+  app.use(cors()); // permitir consumir todos los metodos desde cualquier dominio
+}
+
 
 // Logging de todo lo que entra a la API
 

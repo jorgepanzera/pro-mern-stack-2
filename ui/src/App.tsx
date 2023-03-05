@@ -206,7 +206,7 @@ class IssueList extends React.Component<IssueListProps, IssueListState> {
     // consumir la api utilizando la libreria fetch
     try {
       let response = await fetch(
-        "http://localhost:3000/issues",
+        `${API_URL}/issues`,
         requestOptions
       );
       let body = await response.text();
@@ -238,7 +238,7 @@ class IssueList extends React.Component<IssueListProps, IssueListState> {
     */
     let requestOptions: RequestInit = {method: "POST", headers: {'Content-Type': 'application/json', }, body: JSON.stringify(issue) };
     try {
-      let response = await fetch("http://localhost:3000/issue/create", requestOptions );
+      let response = await fetch(`${API_URL}/issue/create`, requestOptions );
       let body = await response.text();
       console.log(body);
       let result = JSON.parse(body, jsonDateReviver);
