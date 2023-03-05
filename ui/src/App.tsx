@@ -1,26 +1,24 @@
 interface Issue {
-  id?: number;
-  status: string;
-  owner: string;
-  effort?: number;
-  created?: Date;
-  due?: Date;
-  issue_title: string;
+    id?: number
+    status: string
+    owner: string
+    effort?: number
+    created?: Date
+    due?: Date
+    issue_title: string
 }
 
-
-// obtener variable de entorno para la API URL, es a traves del env.js (en index.hmtl) 
+// obtener variable de entorno para la API URL, es a traves del env.js (en index.hmtl)
 // que arma en runtime el  uiserver.ts con el metodo get
-const API_URL = window.ENV.UI_API_ENDPOINT;
+const API_URL = window.ENV.UI_API_ENDPOINT
 
-console.log(`${API_URL}/issues`);
+console.log(`${API_URL}/issues`)
 
-
-const dateRegex = new RegExp("^\\d\\d\\d\\d-\\d\\d-\\d\\d");
+const dateRegex = new RegExp('^\\d\\d\\d\\d-\\d\\d-\\d\\d')
 
 function jsonDateReviver(key: any, value: any) {
-  if (dateRegex.test(value)) return new Date(value);
-  return value;
+    if (dateRegex.test(value)) return new Date(value)
+    return value
 }
 
 // Array de issues, simulando un fetch de una API o db
@@ -57,131 +55,129 @@ const initialIssues = [
 */
 
 // Definir props y state para cada componente
-type IssueFilterProps = {};
+type IssueFilterProps = {}
 
-type IssueFilterState = {};
+type IssueFilterState = {}
 
 class IssueFilter extends React.Component<{}, {}> {
-  render() {
-    return <div>This is a placeholder for the issue filter.</div>;
-  }
+    render() {
+        return <div>This is a placeholder for the issue filter.</div>
+    }
 }
 
-type IssueRowProps = { issue: Issue };
+type IssueRowProps = { issue: Issue }
 
-type IssueRowState = {};
+type IssueRowState = {}
 
 function IssueRow(props: IssueRowProps, state: IssueRowState) {
-  const issue = props.issue;
+    const issue = props.issue
 
-  console.log(`Rendering issue ${issue.id}`);
-  return (
-    <tr>
-      <td> {issue.id} </td>
-      <td> {issue.status} </td>
-      <td> {issue.owner} </td>
-      <td> {issue.created?.toDateString()} </td>
-      <td> {issue.due ? issue.due.toDateString() : ""} </td>
-      <td> {issue.issue_title} </td>
-    </tr>
-  );
+    console.log(`Rendering issue ${issue.id}`)
+    return (
+        <tr>
+            <td> {issue.id} </td>
+            <td> {issue.status} </td>
+            <td> {issue.owner} </td>
+            <td> {issue.created?.toDateString()} </td>
+            <td> {issue.due ? issue.due.toDateString() : ''} </td>
+            <td> {issue.issue_title} </td>
+        </tr>
+    )
 }
 
 type IssueTableProps = {
-  issues: Issue[];
-  tableStyle: React.CSSProperties;
-  tableClass:string,
-};
+    issues: Issue[]
+    tableStyle: React.CSSProperties
+    tableClass: string
+}
 
-type IssueTableState = {};
+type IssueTableState = {}
 
 function IssueTable(props: IssueTableProps, state: IssueTableState) {
-  // Iterar con map en el array de issues del state, key para unique id de cada fila
-  //console.log(props.issues);
-  const issuesRows = props.issues.map((issue) => (
-    <IssueRow key={issue.id} issue={issue} />
-  ));
-  const tableStyle = props.tableStyle;
-  const tableClass = props.tableClass;
+    // Iterar con map en el array de issues del state, key para unique id de cada fila
+    //console.log(props.issues);
+    const issuesRows = props.issues.map((issue) => <IssueRow key={issue.id} issue={issue} />)
+    const tableStyle = props.tableStyle
+    const tableClass = props.tableClass
 
-  return (
-    <table className={tableClass} style={tableStyle}>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Status</th>
-          <th>Owner</th>
-          <th>Created Date</th>
-          <th>Due Date</th>
-          <th>Title</th>
-        </tr>
-      </thead>
-      <tbody>{issuesRows}</tbody>
-    </table>
-  );
+    return (
+        <table className={tableClass} style={tableStyle}>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Status</th>
+                    <th>Owner</th>
+                    <th>Created Date</th>
+                    <th>Due Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>{issuesRows}</tbody>
+        </table>
+    )
 }
 
 // explicitar el contenido de Props y State para IssueAddState
-type IssueAddProps = { createIssue(issue: Issue): void };
+type IssueAddProps = { createIssue(issue: Issue): void }
 
-type IssueAddState = {};
+type IssueAddState = {}
 
 class IssueAdd extends React.Component<IssueAddProps, IssueAddState> {
-  constructor(props: any) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+    constructor(props: any) {
+        super(props)
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
 
-  componentDidMount() {}
+    componentDidMount() {}
 
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
 
-    //console.log(event.currentTarget);
+        //console.log(event.currentTarget);
 
-    const form = document.forms.namedItem("IssueSubmit") as HTMLFormElement;
-    //const form = event.currentTarget;
+        const form = document.forms.namedItem('IssueSubmit') as HTMLFormElement
+        //const form = event.currentTarget;
 
-    let owner: string = form.owner?.value;
-    let title: string = form.issue_title?.value;
+        let owner: string = form.owner?.value
+        let title: string = form.issue_title?.value
 
-    const issue: Issue = {
-      owner: form.owner?.value,
-      issue_title: form.issue_title?.value,
-      status: "New",
-    };
-    this.props.createIssue(issue);
-    form.owner.value = "";
-    form.issue_title.value = "";
-  };
+        const issue: Issue = {
+            owner: form.owner?.value,
+            issue_title: form.issue_title?.value,
+            status: 'New',
+        }
+        this.props.createIssue(issue)
+        form.owner.value = ''
+        form.issue_title.value = ''
+    }
 
-  render() {
-    return (
-      <form name="IssueSubmit" onSubmit={this.handleSubmit}>
-        <input type="text" name="owner" placeholder="Owner" />
-        <input type="text" name="issue_title" placeholder="Title" />
-        <button>Add</button>
-      </form>
-    );
-  }
+    render() {
+        return (
+            <form name="IssueSubmit" onSubmit={this.handleSubmit}>
+                <input type="text" name="owner" placeholder="Owner" />
+                <input type="text" name="issue_title" placeholder="Title" />
+                <button>Add</button>
+            </form>
+        )
+    }
 }
 
 // clase que usa las otras 3 en un Fragment
 
-type IssueListProps = {};
+type IssueListProps = {}
 
 type IssueListState = {
-  issues: Issue[];
-};
+    issues: Issue[]
+}
 
 class IssueList extends React.Component<IssueListProps, IssueListState> {
-  constructor(props: any) {
-    super(props);
-    this.state = { issues: [] };
-    this.createIssue = this.createIssue.bind(this); // para poder usarlo en child elements, y que this siga apuntando a IssueList
-  }
+    constructor(props: any) {
+        super(props)
+        this.state = { issues: [] }
+        this.createIssue = this.createIssue.bind(this) // para poder usarlo en child elements, y que this siga apuntando a IssueList
+    }
 
-  /*
+    /*
   async loadData() {
     // Aca va el fetch a la api GET ALL cuando exista
     try {
@@ -198,108 +194,108 @@ class IssueList extends React.Component<IssueListProps, IssueListState> {
     }
   }*/
 
-  async loadData() {
-    let requestOptions: RequestInit = {
-      method: "GET",
-      redirect: "follow",
-    };
+    async loadData() {
+        let requestOptions: RequestInit = {
+            method: 'GET',
+            redirect: 'follow',
+        }
 
-    // consumir la api utilizando la libreria fetch
-    try {
-      let response = await fetch(
-        `${API_URL}/issues`,
-        requestOptions
-      );
-      let body = await response.text();
-      //console.log(body);
-      let result = JSON.parse(body, jsonDateReviver);
-      //console.log(result);
-      if (result) {
-        this.setState({ issues: result?.issues as Issue[] });
-      }
-     /*
+        // consumir la api utilizando la libreria fetch
+        try {
+            let response = await fetch(`${API_URL}/issues`, requestOptions)
+            let body = await response.text()
+            //console.log(body);
+            let result = JSON.parse(body, jsonDateReviver)
+            //console.log(result);
+            if (result) {
+                this.setState({ issues: result?.issues as Issue[] })
+            }
+            /*
      let data = await request("http://localhost:3000/issues", requestOptions)
       if (data) {
         //this.setState({ issues: result?.issues as Issue[] });
         this.setState({ issues: data?.issues as Issue[] });
       }
       */
-    } catch (err) {
-      throw new Error(`Error loadData/GetAllIssues : ${err}`);
+        } catch (err) {
+            throw new Error(`Error loadData/GetAllIssues : ${err}`)
+        }
     }
-  }
 
-  async createIssue(issue: Issue) {
-    /*
+    async createIssue(issue: Issue) {
+        /*
     issue.id = this.state.issues.length + 1;
     issue.created = new Date();
     const newIssueList = this.state.issues.slice();
     newIssueList.push(issue);
     this.setState({ issues: newIssueList });
     */
-    let requestOptions: RequestInit = {method: "POST", headers: {'Content-Type': 'application/json', }, body: JSON.stringify(issue) };
-    try {
-      let response = await fetch(`${API_URL}/issue/create`, requestOptions );
-      let body = await response.text();
-      console.log(body);
-      let result = JSON.parse(body, jsonDateReviver);
-      console.log(result);
-      if (result) {
-        await this.loadData();
-      }  
-    } catch(err) {
-      throw new Error(`Error createIssue : ${err}`);      
+        let requestOptions: RequestInit = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(issue),
+        }
+        try {
+            let response = await fetch(`${API_URL}/issue/create`, requestOptions)
+            let body = await response.text()
+            console.log(body)
+            let result = JSON.parse(body, jsonDateReviver)
+            console.log(result)
+            if (result) {
+                await this.loadData()
+            }
+        } catch (err) {
+            throw new Error(`Error createIssue : ${err}`)
+        }
     }
-  }
 
-  // cuando el componente esta pronto para render, le asigno el state inicial
-  componentDidMount() {
-    this.loadData();
-  }
+    // cuando el componente esta pronto para render, le asigno el state inicial
+    componentDidMount() {
+        this.loadData()
+    }
 
-  render() {
-    const tableStyle: React.CSSProperties = {};
-      /*marginLeft: "auto",
+    render() {
+        const tableStyle: React.CSSProperties = {}
+        /*marginLeft: "auto",
       marginRight: "auto",
       borderCollapse: "collapse",
     };*/
-    // w-75 es 75% de tamanio relativo al parent, mx-auto la centra
-    const tableClass="table table-dark table-striped table-responsive w-75 mx-auto"; 
+        // w-75 es 75% de tamanio relativo al parent, mx-auto la centra
+        const tableClass = 'table table-dark table-striped table-responsive w-75 mx-auto'
 
-    return (
-      <React.Fragment>
-        <h1>Issue Tracker</h1>
-        <IssueFilter />
-        <hr />
-        <IssueTable issues={this.state.issues} tableStyle={tableStyle} tableClass={tableClass} />
-        <hr />
-        <IssueAdd createIssue={this.createIssue} />
-      </React.Fragment>
-    );
-  }
+        return (
+            <React.Fragment>
+                <h1>Issue Tracker</h1>
+                <IssueFilter />
+                <hr />
+                <IssueTable
+                    issues={this.state.issues}
+                    tableStyle={tableStyle}
+                    tableClass={tableClass}
+                />
+                <hr />
+                <IssueAdd createIssue={this.createIssue} />
+            </React.Fragment>
+        )
+    }
 }
 
 function IsFormFieldElement(
-  element: Element
+    element: Element
 ): asserts element is HTMLInputElement | HTMLSelectElement | HTMLButtonElement {
-  // Customize this list as necessary −−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  if (!("value" in element)) {
-    throw new Error(`Element is not a form field element`);
-  }
+    // Customize this list as necessary −−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    if (!('value' in element)) {
+        throw new Error(`Element is not a form field element`)
+    }
 }
 
+async function request<TResponse>(request_url: string, config: RequestInit): Promise<TResponse> {
+    const response = await fetch(request_url, config)
 
-async function request<TResponse>(
-  request_url: string,
-  config: RequestInit
-): Promise<TResponse> {
-  const response = await fetch(request_url, config);
-
-  const body = await response.text();
-  const result = JSON.parse(body, jsonDateReviver);
-  return result;
+    const body = await response.text()
+    const result = JSON.parse(body, jsonDateReviver)
+    return result
 }
-
 
 /*
 async function graphQLFetch(query, variables = {}) {
@@ -329,7 +325,4 @@ async function graphQLFetch(query, variables = {}) {
 */
 
 // Crear issue list
-ReactDOM.render(
-  React.createElement(IssueList),
-  document.getElementById("contents")
-);
+ReactDOM.render(React.createElement(IssueList), document.getElementById('contents'))

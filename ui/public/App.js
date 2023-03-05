@@ -17,11 +17,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-// obtener variable de entorno para la API URL, es a traves del env.js (en index.hmtl) 
+// obtener variable de entorno para la API URL, es a traves del env.js (en index.hmtl)
 // que arma en runtime el  uiserver.ts con el metodo get
 var API_URL = window.ENV.UI_API_ENDPOINT;
 console.log("".concat(API_URL, "/issues"));
-var dateRegex = new RegExp("^\\d\\d\\d\\d-\\d\\d-\\d\\d");
+var dateRegex = new RegExp('^\\d\\d\\d\\d-\\d\\d-\\d\\d');
 function jsonDateReviver(key, value) {
   if (dateRegex.test(value)) return new Date(value);
   return value;
@@ -80,7 +80,7 @@ function IssueRow(props, state) {
   var _issue$created;
   var issue = props.issue;
   console.log("Rendering issue ".concat(issue.id));
-  return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, " ", issue.id, " "), /*#__PURE__*/React.createElement("td", null, " ", issue.status, " "), /*#__PURE__*/React.createElement("td", null, " ", issue.owner, " "), /*#__PURE__*/React.createElement("td", null, " ", (_issue$created = issue.created) === null || _issue$created === void 0 ? void 0 : _issue$created.toDateString(), " "), /*#__PURE__*/React.createElement("td", null, " ", issue.due ? issue.due.toDateString() : "", " "), /*#__PURE__*/React.createElement("td", null, " ", issue.issue_title, " "));
+  return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, " ", issue.id, " "), /*#__PURE__*/React.createElement("td", null, " ", issue.status, " "), /*#__PURE__*/React.createElement("td", null, " ", issue.owner, " "), /*#__PURE__*/React.createElement("td", null, " ", (_issue$created = issue.created) === null || _issue$created === void 0 ? void 0 : _issue$created.toDateString(), " "), /*#__PURE__*/React.createElement("td", null, " ", issue.due ? issue.due.toDateString() : '', " "), /*#__PURE__*/React.createElement("td", null, " ", issue.issue_title, " "));
 }
 function IssueTable(props, state) {
   // Iterar con map en el array de issues del state, key para unique id de cada fila
@@ -113,7 +113,7 @@ var IssueAdd = /*#__PURE__*/function (_React$Component2) {
 
       //console.log(event.currentTarget);
 
-      var form = document.forms.namedItem("IssueSubmit");
+      var form = document.forms.namedItem('IssueSubmit');
       //const form = event.currentTarget;
 
       var owner = (_form$owner = form.owner) === null || _form$owner === void 0 ? void 0 : _form$owner.value;
@@ -121,11 +121,11 @@ var IssueAdd = /*#__PURE__*/function (_React$Component2) {
       var issue = {
         owner: (_form$owner2 = form.owner) === null || _form$owner2 === void 0 ? void 0 : _form$owner2.value,
         issue_title: (_form$issue_title2 = form.issue_title) === null || _form$issue_title2 === void 0 ? void 0 : _form$issue_title2.value,
-        status: "New"
+        status: 'New'
       };
       _this.props.createIssue(issue);
-      form.owner.value = "";
-      form.issue_title.value = "";
+      form.owner.value = '';
+      form.issue_title.value = '';
     });
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
@@ -168,18 +168,18 @@ var IssueList = /*#__PURE__*/function (_React$Component3) {
 
   /*
   async loadData() {
-    // Aca va el fetch a la api GET ALL cuando exista
-    try {
-      const data = await request("http://localhost:3000/issues", {
-        method: "GET",
-        headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'http://localhost:3000' },
-      });
-        if (data) {
-        this.setState({ issues: data as Issue[] });
-      }
-    } catch (error) {
-      console.log(error);
+  // Aca va el fetch a la api GET ALL cuando exista
+  try {
+    const data = await request("http://localhost:3000/issues", {
+      method: "GET",
+      headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'http://localhost:3000' },
+    });
+      if (data) {
+      this.setState({ issues: data as Issue[] });
     }
+  } catch (error) {
+    console.log(error);
+  }
   }*/
   _createClass(IssueList, [{
     key: "loadData",
@@ -190,8 +190,8 @@ var IssueList = /*#__PURE__*/function (_React$Component3) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               requestOptions = {
-                method: "GET",
-                redirect: "follow"
+                method: 'GET',
+                redirect: 'follow'
               }; // consumir la api utilizando la libreria fetch
               _context.prev = 1;
               _context.next = 4;
@@ -211,11 +211,11 @@ var IssueList = /*#__PURE__*/function (_React$Component3) {
               }
               /*
               let data = await request("http://localhost:3000/issues", requestOptions)
-               if (data) {
-                 //this.setState({ issues: result?.issues as Issue[] });
-                 this.setState({ issues: data?.issues as Issue[] });
-               }
-               */
+              if (data) {
+              //this.setState({ issues: result?.issues as Issue[] });
+              this.setState({ issues: data?.issues as Issue[] });
+              }
+              */
               _context.next = 15;
               break;
             case 12:
@@ -249,7 +249,7 @@ var IssueList = /*#__PURE__*/function (_React$Component3) {
               this.setState({ issues: newIssueList });
               */
               requestOptions = {
-                method: "POST",
+                method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'
                 },
@@ -305,7 +305,7 @@ var IssueList = /*#__PURE__*/function (_React$Component3) {
       borderCollapse: "collapse",
       };*/
       // w-75 es 75% de tamanio relativo al parent, mx-auto la centra
-      var tableClass = "table table-dark table-striped table-responsive w-75 mx-auto";
+      var tableClass = 'table table-dark table-striped table-responsive w-75 mx-auto';
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Issue Tracker"), /*#__PURE__*/React.createElement(IssueFilter, null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(IssueTable, {
         issues: this.state.issues,
         tableStyle: tableStyle,
@@ -319,7 +319,7 @@ var IssueList = /*#__PURE__*/function (_React$Component3) {
 }(React.Component);
 function IsFormFieldElement(element) {
   // Customize this list as necessary −−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  if (!("value" in element)) {
+  if (!('value' in element)) {
     throw new Error("Element is not a form field element");
   }
 }
@@ -377,5 +377,5 @@ function _request() {
   }));
   return _request.apply(this, arguments);
 }
-ReactDOM.render(React.createElement(IssueList), document.getElementById("contents"));
+ReactDOM.render(React.createElement(IssueList), document.getElementById('contents'));
 //# sourceMappingURL=App.js.map
