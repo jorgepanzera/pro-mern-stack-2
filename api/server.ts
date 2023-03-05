@@ -13,7 +13,7 @@ const app = express();
 const url = process.env.DB_URL || `mongodb://0.0.0.0:27017/`;
 //const url = `mongodb://172.17.0.2:27017/`;
 //const url = `mongodb://localhost:27017/`;
-// Mongodb Atlas connection string
+// Mongodb Atlas connection string - tiene pocas consultas
 //const url = `mongodb+srv://admin:Ji9vfIASQ7NnFwN8@cluster0.30imzhm.mongodb.net`;
 
 // port para la API, desde archivo .env con default 3000

@@ -98,6 +98,8 @@ function IssueTable(props, state) {
     style: tableStyle
   }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "ID"), /*#__PURE__*/React.createElement("th", null, "Status"), /*#__PURE__*/React.createElement("th", null, "Owner"), /*#__PURE__*/React.createElement("th", null, "Created Date"), /*#__PURE__*/React.createElement("th", null, "Due Date"), /*#__PURE__*/React.createElement("th", null, "Title"))), /*#__PURE__*/React.createElement("tbody", null, issuesRows));
 }
+
+// explicitar el contenido de Props y State para IssueAddState
 var IssueAdd = /*#__PURE__*/function (_React$Component2) {
   _inherits(IssueAdd, _React$Component2);
   var _super2 = _createSuper(IssueAdd);

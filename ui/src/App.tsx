@@ -121,6 +121,7 @@ function IssueTable(props: IssueTableProps, state: IssueTableState) {
   );
 }
 
+// explicitar el contenido de Props y State para IssueAddState
 type IssueAddProps = { createIssue(issue: Issue): void };
 
 type IssueAddState = {};
