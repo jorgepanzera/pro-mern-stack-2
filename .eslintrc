@@ -29,6 +29,7 @@
         "react/tsx-indent":                     [2, 4],
         "react/tsx-one-expression-per-line":    [0],
         "react/prefer-stateless-function":      [1],
-        "react/static-property-placement":      [1, "property assignment"]
+        "react/static-property-placement":      [1, "property assignment"],
+        "import/extensions": [ "error", "always", { "ignorePackages": true } ]
     }
 }

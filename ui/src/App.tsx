@@ -1,3 +1,9 @@
+
+import React from "react"
+import ReactDOM from "react-dom"
+import { jsonDateReviver } from "./DateHandler"
+
+
 interface Issue {
     id?: number
     status: string
@@ -14,12 +20,7 @@ const API_URL = window.ENV.UI_API_ENDPOINT
 
 console.log(`${API_URL}/issues`)
 
-const dateRegex = new RegExp('^\\d\\d\\d\\d-\\d\\d-\\d\\d')
 
-function jsonDateReviver(key: any, value: any) {
-    if (dateRegex.test(value)) return new Date(value)
-    return value
-}
 
 // Array de issues, simulando un fetch de una API o db
 /*
