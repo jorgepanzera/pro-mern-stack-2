@@ -2,17 +2,9 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { jsonDateReviver } from "./DateHandler"
+import {Issue} from "./types/IssueInterface"
+import { IssueFilter } from "./IssueFilter"
 
-
-interface Issue {
-    id?: number
-    status: string
-    owner: string
-    effort?: number
-    created?: Date
-    due?: Date
-    issue_title: string
-}
 
 // obtener variable de entorno para la API URL, es a traves del env.js (en index.hmtl)
 // que arma en runtime el  uiserver.ts con el metodo get
@@ -21,50 +13,6 @@ const API_URL = window.ENV.UI_API_ENDPOINT
 console.log(`${API_URL}/issues`)
 
 
-
-// Array de issues, simulando un fetch de una API o db
-/*
-const initialIssues = [
-  {
-    id: 1,
-    status: "New",
-    owner: "Ravan",
-    effort: 5,
-    created: new Date("2018-08-15"),
-    due: undefined,
-    issue_title: "Error in console when clicking Add",
-  },
-  {
-    id: 2,
-    status: "Assigned",
-    owner: "Eddie",
-    effort: 14,
-    created: new Date("2018-08-16"),
-    due: new Date("2018-08-30"),
-    issue_title: "Missing bottom border on panel",
-  },
-  {
-    id: 3,
-    status: "Ready",
-    owner: "Sofi",
-    effort: 33,
-    created: new Date("2023-09-27"),
-    due: new Date("2023-10-30"),
-    issue_title: "Read all book in English",
-  },
-];
-*/
-
-// Definir props y state para cada componente
-type IssueFilterProps = {}
-
-type IssueFilterState = {}
-
-class IssueFilter extends React.Component<{}, {}> {
-    render() {
-        return <div>This is a placeholder for the issue filter.</div>
-    }
-}
 
 type IssueRowProps = { issue: Issue }
 

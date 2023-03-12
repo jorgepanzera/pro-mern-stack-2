@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npx nodemon --require babel-register -w . -w .env uiserver.ts",
-    "compile": "babel src --out-dir public --extensions '.js,.ts,.tsx,.jsx'",
-    "watch": "babel src --out-dir public --watch --verbose --extensions '.js,.ts,.tsx,.jsx'",
+    "compile": "webpack --mode production",
+    "watch": "webpack --watch",
     "compile_server": "babel --extensions '.js,.ts,.tsx,.jsx'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -32,6 +32,7 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@typescript-eslint/parser": "^5.54.0",
+    "babel-loader": "^8.3.0",
     "babel-register": "^6.26.0",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
