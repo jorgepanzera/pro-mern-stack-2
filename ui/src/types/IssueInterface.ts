@@ -1,4 +1,4 @@
-export interface Issue {
+export default interface Issue {
     id?: number
     status: string
     owner: string
