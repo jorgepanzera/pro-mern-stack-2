@@ -27,7 +27,7 @@
 				"background": {
 					"activeOnStart": false,
 					"beginsPattern": "[nodemon] 2.0.20",
-					"endsPattern": "App started on port 3000"
+					"endsPattern": "App started on port 8000"
 				}
 			}
 		}

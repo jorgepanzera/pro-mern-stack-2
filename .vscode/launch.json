@@ -10,7 +10,7 @@
 			"type": "chrome",
 			"request": "launch",
 			"url": "http://localhost:8000",
-			"webRoot": "${workspaceRoot}/src",
+			"webRoot": "${workspaceRoot}/ui", // para webpack (visto en developer tools), el codigo empieza en /src, entonces como el real es ui/src, le pongo solo el path hasta ui (el /src se lo agrega webpack)
 			"sourceMaps": true,
 			"preLaunchTask": "start",
 			"userDataDir": "${workspaceRoot}/.tempChromeProfileForDebug",

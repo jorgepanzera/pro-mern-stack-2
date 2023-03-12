@@ -25,7 +25,8 @@ const config = {
             name: 'vendor',
             chunks: 'all',
         },
-    }
+    },
+    devtool: 'source-map'
 }
 
 module.exports = config

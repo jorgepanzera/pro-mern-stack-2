@@ -12,6 +12,6 @@ const container = document.getElementById('contents')
 // root a partir del html container, desde donde se va a renderizar
 const root = createRoot(container!)
 
-// Crear issue list
+// Crear issue list y la renderizo
 const element = <IssueList />
 root.render(element)
