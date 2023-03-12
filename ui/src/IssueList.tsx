@@ -1,17 +1,14 @@
 // obtener variable de entorno para la API URL, es a traves del env.js (en index.hmtl)
 
-import React from "react"
-import { jsonDateReviver } from "./DateHandler"
-import { IssueAdd } from "./IssueAdd"
-import { IssueFilter } from "./IssueFilter"
-import { IssueTable } from "./IssueTable"
-import Issue from "./types/IssueInterface"
+import React from 'react'
+import { jsonDateReviver } from './DateHandler'
+import { IssueAdd } from './IssueAdd'
+import { IssueFilter } from './IssueFilter'
+import { IssueTable } from './IssueTable'
+import Issue from './types/IssueInterface'
 
 // que arma en runtime el  uiserver.ts con el metodo get
 const API_URL = window.ENV.UI_API_ENDPOINT
-
-
-
 
 // clase que usa las otras 3 en un Fragment
 
@@ -27,23 +24,6 @@ export class IssueList extends React.Component<IssueListProps, IssueListState> {
         this.state = { issues: [] }
         this.createIssue = this.createIssue.bind(this) // para poder usarlo en child elements, y que this siga apuntando a IssueList
     }
-
-    /*
-  async loadData() {
-    // Aca va el fetch a la api GET ALL cuando exista
-    try {
-      const data = await request("http://localhost:3000/issues", {
-        method: "GET",
-        headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'http://localhost:3000' },
-      });
-
-      if (data) {
-        this.setState({ issues: data as Issue[] });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }*/
 
     async loadData() {
         let requestOptions: RequestInit = {
@@ -74,13 +54,7 @@ export class IssueList extends React.Component<IssueListProps, IssueListState> {
     }
 
     async createIssue(issue: Issue) {
-        /*
-    issue.id = this.state.issues.length + 1;
-    issue.created = new Date();
-    const newIssueList = this.state.issues.slice();
-    newIssueList.push(issue);
-    this.setState({ issues: newIssueList });
-    */
+
         let requestOptions: RequestInit = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

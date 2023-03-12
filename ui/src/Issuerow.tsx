@@ -1,3 +1,4 @@
+import React from 'react'
 import Issue from './types/IssueInterface'
 
 type IssueRowProps = { issue: Issue }

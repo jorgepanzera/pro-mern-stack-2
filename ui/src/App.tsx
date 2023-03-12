@@ -1,9 +1,17 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
+import 'babel-polyfill'
+import 'whatwg-fetch'
 
-import ReactDOM from "react-dom"
-import { IssueList } from "./IssueList"
+import { IssueList } from './IssueList'
 
-// crear elemente IssueList
-const element = <IssueList/>
+// elemento html que va a contener el codigo que vamos a inyectar por React
+const container = document.getElementById('contents')
+
+// root a partir del html container, desde donde se va a renderizar
+const root = createRoot(container!)
 
 // Crear issue list
-ReactDOM.render(element, document.getElementById('contents'))
+const element = <IssueList />
+root.render(element)

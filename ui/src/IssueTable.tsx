@@ -1,4 +1,5 @@
-import { IssueRow } from "./Issuerow"
+import React from "react"
+import { IssueRow } from "./IssueRow"
 import Issue from "./types/IssueInterface"
 
 export type IssueTableProps = {

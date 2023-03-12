@@ -1,11 +1,12 @@
 const path = require('path')
 
 const config = {
-    entry: './src/App.tsx',
+    
     mode: 'development',
+    entry: { app: './src/App.tsx' },
     output: {
-        path: path.resolve(__dirname, 'public'),
-        filename: 'app.bundle.js',
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'public')
     },
     module: {
         rules: [
@@ -17,8 +18,14 @@ const config = {
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: ['.tsx', '.ts', '.js']
     },
+    optimization: {
+        splitChunks: {
+            name: 'vendor',
+            chunks: 'all',
+        },
+    }
 }
 
 module.exports = config
